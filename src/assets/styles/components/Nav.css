@@ -1,0 +1,53 @@
+#nav{
+	display: flex;
+	padding: 20px;
+	align-items: center;
+	flex-direction: column;
+
+}
+	.navTop{
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+		min-width: 100%;
+	}
+		#logo{
+			width: 280px;
+		}
+		.btnHomeCreate{
+			font:800 25px monospace;
+			line-height: 28px;
+		    background-color: #ffcb05;
+		    border: none;
+		    border-radius: 50%;
+			max-width: 190px;
+			min-height: 170px;
+			cursor: pointer;
+		}
+			.btnHomeCreate img{
+				width: 60px;
+			}
+
+	.navBottom{
+		min-width: 100%;
+		display: flex;
+		justify-content: center;
+		padding-top: 25px;
+	}
+
+		.navBottom select{
+			cursor: pointer;
+			font:700 15px sans-serif;
+			background:#cf3030;
+			border:none;
+			margin:5px 30px;
+			padding: 10px;
+			min-width: 200px;
+			border-radius: 20px;
+			color:white;
+		}
+			.navBottom select option{
+				background-color: #ff7272;
+				font:600 20px sans-serif;
+				color:white;
+			}

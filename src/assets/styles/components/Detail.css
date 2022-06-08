@@ -1,0 +1,49 @@
+#detailContainer{
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+#detail{
+	min-width: 100%;
+	color:white;
+}
+	#detail .pokeDet{
+		min-width: 100%;
+		display: flex;
+		justify-content: center;
+		flex-direction: row;
+	}
+
+		#detail .pokeDet .detLeft{
+			margin: 0 100px;
+			display: flex;
+			flex-direction: row;
+			padding-right: 200px;
+		}
+
+			#detail .pokeDet .detLeft img {
+				height: 500px;
+			}
+
+			#detail .pokeDet .detLeft .ide{
+				font:400 70px cursive;
+				width: 100px;
+				height: 100px;
+				border-radius: 50%;
+				background: #ffd700;
+				color:#000000;
+				text-align: center;
+			}
+
+		#detail .pokeDet .detRigth {
+			font-family: monospace;
+			font-size: 50px;
+		}
+
+			#detail .pokeDet .detRigth .info span{
+				color:#ffd700;
+				font-weight: bold;
+			}

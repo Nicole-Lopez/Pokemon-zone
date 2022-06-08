@@ -1,0 +1,82 @@
+#formCreate{
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	color: #ffffff;
+	font-family: monospace;
+
+}
+
+#form{
+	min-width: 650px;
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: column;
+
+}
+
+#formCreate h1{
+	margin: 50px 50px 0 50px;
+	font-size: 70px;
+	font-weight: 900;
+	padding: 20px;
+}
+
+#formCreate label{
+	font-size: 30px;
+	line-height: 60px;
+	font-weight: 900;
+}
+#formCreate select{
+	font-size: 25px;
+}
+
+#formCreate input{
+	font-size: 20px;
+	border-radius: 20px;
+	padding: 8px;
+}
+
+#formCreate .submit{
+	background-color: #ff0000;
+	color: #ffffff;
+	font-size: 50px;
+	border:none;
+	cursor: pointer;
+
+}
+
+#formCreate button:disabled,
+button[disabled]{
+	cursor: default;
+  border: 1px solid #999999;
+  background-color: transparent;
+  color: #666666;
+}
+
+.listTypes{
+	display: flex;
+	flex-direction: row;
+}
+
+.typePreview{
+	margin: 30px;
+	font-size: 30px;
+	text-transform: uppercase;	
+}
+
+
+.typePreview button{
+	cursor: pointer;
+	margin-left: 10px;
+	background-color: #ff0000;
+	color: #ffffff;
+	border:none;
+	font-size: 30px;
+	width: 50px		;
+	height:50px;
+}
+
+
+

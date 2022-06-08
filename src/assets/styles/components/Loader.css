@@ -1,0 +1,17 @@
+#loader{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	padding-top: 100px;
+}
+
+#loader img{
+	width: 400px;
+}
+
+#loader p{
+	font:normal 400 50px monospace;	
+	color: #fff;
+	padding: 40px;
+}

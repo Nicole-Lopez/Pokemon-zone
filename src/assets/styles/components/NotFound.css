@@ -1,0 +1,21 @@
+#notFound{
+	display:flex;
+	justify-content: center;
+	align-items: center; 
+	color: #fff;
+}
+
+	#notFound img{
+		width: 500px;
+	}
+
+	#notFound .msj{
+		text-align: center;
+	}
+		#notFound p{
+			font:400 150px monospace;
+		}
+		#notFound .msj p:first-child{
+			color: red;
+			font:900 200px sans-serif;
+		}
