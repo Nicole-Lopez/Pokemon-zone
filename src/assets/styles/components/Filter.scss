@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&family=Rubik&display=swap');
+
+.filters_container{
+	text-align: center;
+
+		.order_and_filters{
+			margin:20px auto;
+
+			.select{
+				position: relative;
+				display: inline-block;
+				margin: 10px;
+
+				.option_main{
+					cursor: pointer;
+					min-width: 260px;
+					min-height: 40px;
+					background-color:#CF3030;
+					color:#fff;
+					border: none;
+					border-radius: 20px;
+					position: relative;
+					font: 500 15px 'Kdam Thmor Pro', sans-serif;
+
+						span{
+							position: absolute;
+						    right: 15px;
+						}
+				}
+				.option_container{ 
+					position: absolute;
+					left:20px;
+
+						.option{
+							position: relative;
+							img{
+								position: absolute;
+								width: 30px;
+								right: 8px;
+								bottom: 3px;
+							}
+						}
+						input{
+						    min-height: 40px;
+						    font-size: 16px;
+						    padding: 0 6px 0 15px;
+						}
+
+						button{
+							cursor: pointer;
+							display: block;
+							min-width: 220px;
+							min-height: 40px;
+							border: 1px solid silver;
+							background-color: #e75c5c;
+							color:#fff;							
+						}
+						button:last-child {
+						  	border-radius: 0 0 20px 20px;
+						}
+				}
+
+				
+			}
+		}
+
+
+
+		.remove_random_container{
+			margin: 0 auto;
+    		max-width: 1400px;
+    		display: flex;
+    		justify-content: space-between;
+
+    		.remove_btn, .random_btn{
+    			cursor: pointer;
+    			background-color: transparent;
+    			border: none;
+    			font:900 17px 'Rubik', sans-serif;
+    			display: flex;
+    			gap:5px;
+    			align-items: center;
+    		}
+		}
+
+}
+
+
+
+
+
+

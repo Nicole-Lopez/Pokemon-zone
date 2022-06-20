@@ -10,4 +10,4 @@ img, fieldset { border: 0; }
 ol { padding-left: 1.4em; list-style: decimal; }
 ul { padding-left: 1.4em; list-style:square; }
 q:before, q:after { content:''; }
-#text-link { color: inherit; text-decoration: inherit; }
+.link { text-decoration: none;}

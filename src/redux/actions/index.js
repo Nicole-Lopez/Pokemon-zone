@@ -1,9 +1,11 @@
 import axios from 'axios'
 
+const urlApi = 'https://pokemon-api-crud.herokuapp.com/'
+
 export function getPokemon () {
     return async function (dispatch) {
         try{
-        let info= await axios.get('/pokemons')
+        let info= await axios.get(`${urlApi}pokemons`)
             return dispatch({        
                 type: 'GET_POKEMONS',
                 payload: info.data
@@ -17,7 +19,7 @@ export function getPokemon () {
 export function getType () {
     return async function (dispatch) {
         try{
-        let info= await axios.get('/types')
+        let info= await axios.get(`${urlApi}types`)
         return dispatch({        
             type: 'GET_TYPES',
             payload: info.data
@@ -37,7 +39,7 @@ export function clear (){
 export function getDetail (id) {
     return async function (dispatch) {
         try{
-        let info= await axios.get('/pokemons/'+id)
+        let info= await axios.get('https://pokemon-api-crud.herokuapp.com/pokemons?name=saur'+id)
             return dispatch({        
                 type: 'POKEMON_ID',
                 payload: info.data
@@ -52,7 +54,7 @@ export function getDetail (id) {
 export function getPokeName (name){
     return async function (dispatch){
             try{
-                let info= await axios.get('/pokemons?name='+ name)   
+                let info= await axios.get(`${urlApi}pokemons?name=${name}`)   
                 return dispatch ({
                     type: 'GET_NAME_POKEMON',
                     payload: info.data
@@ -66,10 +68,16 @@ export function getPokeName (name){
     }
 }
 
+export const setPage = () => {
+  return {
+    type: "SET_PAGE",
+  };
+};
 
 
-
-
+export const pagination = () => ({
+    type: 'POKEMONS_PER_PAGE',
+})
 
     
 export function pokemonCreate (payload){
@@ -86,9 +94,9 @@ export function filterByOrder (payload){
     }
 }
 
-export function filterByAttack(payload){
+export function orderByExp(payload){
     return {
-        type: 'FILTER_BY_ATTACK',
+        type: 'FILTER_BY_EXP',
         payload
     }
 }
@@ -99,9 +107,28 @@ export function filterByType(payload){
         payload
     }
 }
-export function filterByDb(payload){
+export function filterByOrigin(payload){
     return {
         type: 'FILTER_CREATED',
         payload
+    };
+}
+
+
+export function filterFalse(){
+    return {
+        type: 'FILTER_FALSE',
+    };
+}
+
+export function randomPokemon(){
+    return {
+        type: 'RANDOM_POKEMON',
+    };
+}
+
+export function cleanRandom(){
+    return {
+        type: 'CLEAN_RANDOM',
     };
 }

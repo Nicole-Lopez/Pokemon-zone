@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&family=Rubik&display=swap');
+$font-color: #476B6A;
+$green-apple-color: #E9F2DE;
+
+.card_container{
+	border-radius: 10px;
+	padding: 28px 0;
+	background-color:#fff;
+	margin: 30px 40px;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	max-width: 295px;
+	max-height: 430px;
+	min-width: 295px;
+	min-height: 430px;
+	color:$font-color;
+
+	.poke_experience{
+		font: 500 30px 'Kdam Thmor Pro', sans-serif;
+		padding: 15px 0;
+	}
+
+	.poke_img{
+		margin-top: 15px;
+		max-height: 200px;
+		max-width: 220px;
+		margin: auto;
+	}
+	
+	.poke_name{
+		font: 700 40px 'Rubik', sans-serif;
+		padding: 22px 0;
+	}
+
+	.poke_types{
+		.type_icon{
+			max-width: 40px;
+			margin:0 5px;
+		}		
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,9 +1,13 @@
 const initialState = {
+    pokesPerPage: [],
     pokemons: [],
     allPokemons: [],
+    randomPokemon:[],
+    page:0,
     detail:[],
     typePokemon:[],
-    load: true
+    load: true,
+    filterANDorder:false
 }
 
 export default function rootReducer (state= initialState, action){
@@ -13,8 +17,40 @@ export default function rootReducer (state= initialState, action){
                 ...state,
                 pokemons: action.payload,
                 allPokemons: action.payload,
-                load: false
+                load: false,
+                filterANDorder:false
             }
+
+
+        case 'POKEMONS_PER_PAGE':
+
+            let currentpage=state.page+1
+
+            let indexOfLastPoke = currentpage * 16
+            return {
+                ...state,
+                pokesPerPage: state.pokemons.slice(0,indexOfLastPoke),
+                page:state.page+1
+            }
+
+
+
+        case  'SET_PAGE':
+            return{
+                ...state,
+                page:0
+            }
+
+
+
+
+
+
+
+
+
+
+
 
         case  'GET_TYPES':
             return{
@@ -37,7 +73,14 @@ export default function rootReducer (state= initialState, action){
             return {
                 ...state,
                 load:true
-            }    
+            } 
+
+        case 'FILTER_FALSE':
+            return {
+                ...state,
+                filterANDorder:false
+            } 
+
         case 'ERROR':
             return {
                 ...state,
@@ -54,95 +97,92 @@ export default function rootReducer (state= initialState, action){
             return {
                 ...state
             }
-     
 
-        case 'FILTER_BY_TYPE':
-            let allFilterPoke = state.allPokemons
-            let typesFilt = []
-            if (action.payload == 'allTypes') {
-                typesFilt= allFilterPoke
-            } else {
-                typesFilt= allFilterPoke.filter((e)=> e.types.includes(action.payload))
-            }
-            
+
+        case 'RANDOM_POKEMON':
+            let allPoke = state.allPokemons;
+            let rand = Math.floor(Math.random()*allPoke.length);
+            let rValue = allPoke[rand];
 
             return {
                 ...state,
+                randomPokemon:[rValue],
+                filterANDorder:'random pokemon'
+            }    
+
+
+        case 'CLEAN_RANDOM':
+            return {
+                ...state,
+                randomPokemon:[],
+            }  
+
+        case 'FILTER_BY_TYPE':
+            let allFilterPoke = state.allPokemons
+            let typesFilt = allFilterPoke.filter(poke=> poke.types.some(e=>e.name === action.payload))
+
+            return {
+                ...state,
+                filterANDorder:action.payload,
                 pokemons: typesFilt
             }
       
         case 'FILTER_BY_ORDER':
-            let all = state.allPokemons
-            let ordAsc = state.pokemons.sort((a,b)=>(a.name < b.name) ? -1: (a.name > b.name)? 1: 0)
+            // let all = state.allPokemons
+            let ordAsc = state.allPokemons.sort((a,b)=>(a.name < b.name) ? -1: (a.name > b.name)? 1: 0)
 
-            if (action.payload==='asc') {
+            if (action.payload==='ASC') {
                 return {
                     ...state,
+                    filterANDorder:'A-Z',
                     pokemons:ordAsc
                 }
             }
 
-            if (action.payload==='des') {
+            if (action.payload==='DESC') {
                 return {
                     ...state,
+                    filterANDorder:'Z-A',
                     pokemons:ordAsc.reverse()
                 }
             }  
 
-            if (action.payload==='all') {
-                let ordIde = state.pokemons.sort((a,b)=>a.ide - b.ide)
-                return {
-                    ...state,
-                    pokemons:ordIde
-                }
-            }  
 
-
-        case 'FILTER_BY_ATTACK':
-            let ord = state.pokemons.sort((a,b)=>a.attack - b.attack)
+        case 'FILTER_BY_EXP':
+            let ord = state.pokemons.sort((a,b)=>a.experience - b.experience)
             
 
-            if (action.payload==='major') {
+            if (action.payload==='highest to lowest') {
                 return {
                     ...state,
+                    filterANDorder:'highest to lowest',
                     pokemons:ord
                 }            
             }
 
-            if (action.payload==='minor') {
+            if (action.payload==='lowest to highest') {
                 return {
                     ...state,
+                    filterANDorder:'lowest to highest',
                     pokemons:ord.reverse()
                 }            
             }
-            if (action.payload==='all') {
-                let ordIde = state.pokemons.sort((a,b)=>a.ide - b.ide)
-                return {
-                    ...state,
-                    pokemons:ordIde
-                }
-            }  
 
 
         case 'FILTER_CREATED': 
             let allPoks=state.allPokemons
             state.pokemons = allPoks
-            if (action.payload === 'all') {
-                return {
-                    ...state,
-                    pokemons:allPoks
-                }      
-            }
+
             if (action.payload === 'api') {
                 return {
                     ...state,
-                    pokemons:state.pokemons.filter((e)=>e.fromApi)  
+                    pokemons:state.pokemons.filter((e)=>e.original)  
                 }      
             }
-            if (action.payload === 'db') {
+            if (action.payload === 'fan') {
                 return {
                     ...state,
-                    pokemons:state.pokemons.filter((e)=>!e.fromApi) 
+                    pokemons:state.pokemons.filter((e)=>!e.original) 
                 }       
             }
 
