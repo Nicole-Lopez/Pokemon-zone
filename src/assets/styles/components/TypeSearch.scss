@@ -1,0 +1,61 @@
+// .option_container{ 
+
+// 		.option{
+// 			position: relative;
+// 			img{
+// 				position: absolute;
+// 				width: 30px;
+// 				right: 8px;
+// 				bottom: 3px;
+// 			}
+// 		}
+// 		input{
+// 		    min-height: 40px;
+// 		    font-size: 16px;
+// 		    padding: 0 6px 0 15px;
+// 		    outline: none;
+// 		}
+
+// 		button{
+// 			cursor: pointer;
+// 			display: block;
+// 			min-width: 220px;
+// 			min-height: 40px;
+// 			border: 1px solid silver;
+// 			background-color: #e75c5c;
+// 			color:#fff;							
+// 		}
+// }
+
+.type_esp{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+
+	input{
+	    font-size: 16px;
+	    padding: 5px 8px;
+	    outline: none;
+	    margin-bottom: 10px;
+	}
+
+
+	button{
+		display: flex;
+		flex-direction: row-reverse;
+		min-width: 130px;
+		justify-content: flex-end;
+		padding: 5px 0;
+	}
+
+	button img {
+		padding-right: 5px;
+		width: 30px;
+	}
+}
+
+
+
+
+
+

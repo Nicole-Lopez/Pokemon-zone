@@ -1,0 +1,44 @@
+.typeIcon{
+	display: inline;
+	position: relative;
+
+	.typeIcon__icon{
+		max-width: 30px;
+		margin:0 5px;
+	}
+
+	.typeIcon__tooltip{
+	    position: absolute;
+	    left: -22px;
+	    bottom: 42px;	    
+	    z-index: 500;	    
+	    min-width: 80px;
+	    padding: 8px 0;
+	    border-radius: 5px;
+	    background: #000;
+	    color: #fff;
+	    font-size: 12px;
+		text-transform: uppercase;
+	    text-align: center;
+	    visibility: hidden;
+	    opacity: 0;
+	    transition: opacity 0.2s ease;
+	}
+
+	.typeIcon__tooltip::before{
+		content: "";
+		position: absolute;
+		bottom: -7px;
+		left: calc(50% - 7px);				
+		border-top: 7px solid #000;
+		border-left: 7px solid transparent;
+		border-right: 7px solid transparent;
+	}
+}
+
+.typeIcon:hover{
+	.typeIcon__tooltip {
+		visibility: visible;
+		opacity: 1;
+	}	
+} 

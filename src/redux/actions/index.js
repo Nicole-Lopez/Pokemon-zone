@@ -36,35 +36,26 @@ export function clear (){
     }
 }
 
-export function getDetail (id) {
+export function getDetail (name) {
     return async function (dispatch) {
         try{
-        let info= await axios.get('https://pokemon-api-crud.herokuapp.com/pokemons?name=saur'+id)
+        let info= await axios.get(`${urlApi}pokemons?name=${name}`)
             return dispatch({        
-                type: 'POKEMON_ID',
+                type: 'POKEMON_DETAIL',
                 payload: info.data
             })
         } catch(err){
-            console.log(err)
+            return dispatch ({
+                type: 'ERROR',
+            })  
         }
     }
 }
 
-
-export function getPokeName (name){
-    return async function (dispatch){
-            try{
-                let info= await axios.get(`${urlApi}pokemons?name=${name}`)   
-                return dispatch ({
-                    type: 'GET_NAME_POKEMON',
-                    payload: info.data
-                })  
-
-            }catch(err){
-                return dispatch ({
-                    type: 'ERROR',
-                })  
-            }
+export function getPokeName (payload){
+    return {
+        type: 'GET_NAME_POKEMON',
+        payload
     }
 }
 
@@ -80,12 +71,27 @@ export const pagination = () => ({
 })
 
     
-export function pokemonCreate (payload){
+export const pokemonCreate = (payload) => {
     return async function (dispatch){
-        const response = axios.post('/pokemons', payload)
-        return response;
+        await axios.post(`${urlApi}pokemons`, payload).then((res)=>{
+            dispatch({
+                type: "POST_POKEMON",
+                payload: res.data,
+            })
+        }).catch((error)=>{
+            dispatch({
+                type: "POST_POKEMON",
+                payload: error.response.data,
+            })            
+        })
     }
 }
+export const CleanStatus = () => {
+  return {
+    type: "CleanStatus",
+  };
+};
+
 
 export function filterByOrder (payload){
     return {
@@ -132,3 +138,18 @@ export function cleanRandom(){
         type: 'CLEAN_RANDOM',
     };
 }
+
+export function ireneMAdrigal(payload){
+    return {
+        type: 'IRENE',
+        payload
+    };
+}
+
+// export function tipoPrueba(payload){
+
+//     return {
+//         type: 'FILTER_BY_TYPE',
+//         payload
+//     };
+// }

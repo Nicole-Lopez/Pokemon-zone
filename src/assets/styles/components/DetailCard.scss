@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Goldman&family=Rubik&family=Saira&display=swap');
+
+$dark_green_color: #476B6A;
+$silver_line:solid silver 1px;
+
+$saira_font:'Saira', sans-serif;
+$goldman_font: 'Goldman', cursive;
+
+
+#detail_card_container_main{
+	background-color:$dark_green_color;
+	max-width: 750px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 20px;
+	border-radius: 20px;
+
+		.pro_cont{
+			max-width: 400px;
+			background-color: #959292;
+			animation: background 2s ease forwards;
+			border-radius:8px;
+
+				.progress_bar{
+					height: 20px;
+				    border-radius:8px;
+				}
+		}
+
+		.detail_exp{
+			font: 400 45px 'Rubik', sans-serif;
+			color: #fff;
+		}
+		.progress_circle{
+			max-height: 314px;
+		}
+
+		.detail_info_container{
+			position: relative;
+			border-radius: 0 0 20px 20px; 
+			background-color: #fff;
+			width: 750px;
+			text-align: center;
+			padding: 35px 0 10px 0;
+
+				.detail_pokemon_img{
+					max-height: 280px;
+					max-width: 280px;
+					min-width: 280px;
+					min-height: 280px;
+					position: absolute;
+					top:-240px;
+					left: calc((750px - 280px)/2);
+				}
+
+				h1{
+					font: 400 60px $goldman_font;
+				}
+
+				.table_container{
+					margin: 20px auto 0 auto;
+					display: flex;
+					justify-content: center;
+					align-items: flex-end;
+					padding-bottom: 20px;
+					border-bottom:$silver_line;
+					max-width: 600px;
+
+						.detail_info{
+							color: $dark_green_color;
+							font: 400 35px $goldman_font;
+			    			padding:0 50px 10px 50px;
+
+			    			span{
+			    				font-size: 25px;
+			    			}
+						}
+						.detail_info_title{
+							font: 700 20px $saira_font;
+						}			
+
+
+						.detail_types{
+							.detail_icon_type{
+								min-width: 100px;
+								border-right:$silver_line;
+								padding:0 50px 10px 0;
+							}	
+							.detail_info_title{
+								margin-right: 50px;
+							}		
+						}
+
+						.detail_height{
+							.detail_info{
+								border-left:$silver_line;
+								padding:0 0 10px 50px;
+							}
+							.detail_info_title{
+								margin-left: 50px;
+							}
+						}
+				}
+
+				.statistics_container{
+					color: $dark_green_color;
+					font: 700 25px $saira_font;
+
+						.detail_container{
+							display: flex;
+							flex-direction: row;
+							margin:25px 0;
+							align-items: baseline;
+							justify-content: center;
+
+								.detail_info_title{					
+								    min-width: 150px;
+				    				text-align: left;
+								}
+
+								.detail_info{
+									min-width: 130px;
+				    				text-align: right;	
+									
+										.icon{
+											width: 50px;
+										}			
+								}
+						}
+				}
+		}
+}
+
+@keyframes background {
+    0% {width: 0;}
+    100% {width: 100%;}
+}

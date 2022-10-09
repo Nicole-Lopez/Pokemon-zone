@@ -2,60 +2,36 @@
 $font-color: #476B6A;
 $green-apple-color: #E9F2DE;
 
-.card_container{
-	border-radius: 10px;
-	padding: 28px 0;
-	background-color:#fff;
-	margin: 30px 40px;
-	text-align: center;
+.cardHome{
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
-	max-width: 295px;
-	max-height: 430px;
-	min-width: 295px;
-	min-height: 430px;
-	color:$font-color;
+	max-width: 145px;
+	max-height: 250px;
+	min-width: 145px;
+	min-height: 250px;
+	padding-bottom: 8px;
+	margin: 5px;
+	border-radius: 8px;
+	background-color: #fff;	
+	text-decoration: none;
+	text-align: center;
+	color: #476B6A;
 
-	.poke_experience{
-		font: 500 30px 'Kdam Thmor Pro', sans-serif;
+	.cardHome__experience{
+		font: 500 18px 'Kdam Thmor Pro', sans-serif;
 		padding: 15px 0;
 	}
 
-	.poke_img{
-		margin-top: 15px;
-		max-height: 200px;
-		max-width: 220px;
-		margin: auto;
+	.cardHome__img{
+		margin: auto;		
+		max-height: 90px;
+		min-height: 90px;		
+		max-width: 90px;
 	}
 	
-	.poke_name{
-		font: 700 40px 'Rubik', sans-serif;
-		padding: 22px 0;
-	}
-
-	.poke_types{
-		.type_icon{
-			max-width: 40px;
-			margin:0 5px;
-		}		
+	.cardHome__name{
+		font: 700 21px 'Rubik', sans-serif;
+		padding: 15px 0;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

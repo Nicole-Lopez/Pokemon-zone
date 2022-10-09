@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost&family=Jura&display=swap');
+
+$font_jura:800 20px 'Jura', sans-serif;
+
+
+
+
+	.title{
+    	margin: 20px auto 30px auto;
+		text-align: center;
+
+			h1{
+		    	color: #36459c;
+		    	font:900 50px 'Jura', sans-serif;
+			    padding: 5px 0;
+			}
+		    .underline{
+		    	width: 600px;
+		    	height: 15px;
+		    	background-color: #36459c;
+		    }
+	}
+
+	.create_pokemon_container{
+		background-color: #6accaf;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items: center;
+		gap:90px;
+
+
+		.detail_card,.detail_card_load{
+			padding:20px 50px;
+			position: relative;
+		}
+
+		.detail_card_load{
+			opacity: 0.8;
+		}
+
+		.loader_image{
+			position: absolute;
+			top:320px;
+			left:320px;
+		}
+		.loader_submit{
+			position: absolute;
+			top:calc((1053px - 300px)/2);
+			left:calc((750px - 300px)/2);
+		}
+
+		.background_figure{
+			position: absolute;
+			right: 0;
+			width: 900px;
+			height: 980px;
+			background-color: #f1f1f1;
+			border-left: 120px solid #6accaf;
+			border-bottom: 980px solid transparent;
+			box-sizing: border-box;
+		}
+
+		.form_create{
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			width: 600px;
+
+				label{
+					font:bold 22px 'Jost', sans-serif;
+					letter-spacing: 2px;
+					color: #36459c;
+				}
+
+				.form_input_large, .form_input_short{
+					display: flex;
+					align-items: baseline;
+					justify-content: space-between;
+					margin:15px 0;
+
+					input{
+						text-align: center;
+						padding: 8px 15px;
+						font:$font_jura;
+						border-radius: 20px;
+					}					
+				}
+
+				.form_input_large{
+					width: 440px;
+
+					input{
+						background: white;
+						width: 230px;
+					}					
+				}
+
+				.form_input_short{
+					position: relative;
+					width: 380px;
+
+					input{
+						background-color: white;
+						width: 130px;
+					}
+
+					.span_weight,.span_height,.span_exp{
+						font:$font_jura;
+						position: absolute;
+						padding: 8px 15px;
+						top: 0;
+					}
+
+						.span_weight,.span_height{
+							right: 1px;
+						}
+						.span_exp{
+							right: 105px;						
+						}
+				}
+
+				.form_input_type{
+					position: relative;
+					display: flex;
+					margin: 15px 0;
+				    justify-content: space-between;
+				    align-items: flex-start;
+				    max-width: 430px;
+				
+						.option_container{
+							position: absolute;
+							bottom: 120px;
+							display: flex;
+							flex-direction: column-reverse;
+						}
+
+						.option_container::before {
+							content: "";
+							position: absolute;
+							left: 50%;
+							top: 100%;
+							transform: translateX(-50%);
+							border: 15px solid;
+							border-color: #e75c5c #0000 #0000 #0000;
+						}
+
+						.select_type_one,.select_type_two{
+							display: flex;
+							align-items: center;
+							flex-direction: column;
+							justify-content: flex-start;
+		    				min-height: 94px;
+		    				min-width: 118px;
+							
+							img{
+								max-width: 60px;
+							}
+							.text_select{
+								padding-top: 10px;
+
+								span{
+									font:$font_jura;
+								}
+								button{
+									font:$font_jura;
+									padding: 0 10px;
+									background:transparent;
+									border: none;
+									color:red;
+								}
+							}
+						}
+
+						.type_btn_select{
+							background: transparent;
+							font-size: 28px;
+							border: dashed 10px #36459c;
+							border-radius: 50%;
+							width: 60px;
+		    				height: 60px;
+		    				color:#36459c;
+						}
+				}
+
+		.btn_submit{
+			position: absolute;
+			top:40%;
+			left:-250px;
+			margin:30px auto;
+			background-color: #fece00;
+			color: #131d46;
+			border: solid 10px #36459c;
+			width: 200px;
+			height: 200px;
+			border-radius: 50%;
+			box-shadow: inset 0px 0px 9px 3px rgba(0,0,0,0.71);
+
+			p{
+				font:900 40px 'Jura', sans-serif;
+			}
+
+		}
+
+			.btn_submit:disabled,
+			.btn_submit[disabled]{
+			  opacity: 0.6;
+			  cursor: default;
+			}
+		}
+	}
+
+
+.input_error{
+	border: solid 1px red;
+}
+.input_correct{
+	border: solid 1px green;
+}
+.input_normal, .input_img{
+	border: solid 1px black;
+}

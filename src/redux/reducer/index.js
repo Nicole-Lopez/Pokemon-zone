@@ -7,7 +7,14 @@ const initialState = {
     detail:[],
     typePokemon:[],
     load: true,
-    filterANDorder:false
+    filterANDorder:false,
+    hasMore:true,
+    load:true,
+    notFound:false,
+    type:[],
+    status: null,
+
+    irene: false
 }
 
 export default function rootReducer (state= initialState, action){
@@ -18,6 +25,7 @@ export default function rootReducer (state= initialState, action){
                 pokemons: action.payload,
                 allPokemons: action.payload,
                 load: false,
+                notFound:false,
                 filterANDorder:false
             }
 
@@ -30,6 +38,7 @@ export default function rootReducer (state= initialState, action){
             return {
                 ...state,
                 pokesPerPage: state.pokemons.slice(0,indexOfLastPoke),
+                hasMore: state.pokemons.length === state.pokesPerPage.length || state.pokemons.length === 0?false:true,
                 page:state.page+1
             }
 
@@ -43,13 +52,24 @@ export default function rootReducer (state= initialState, action){
 
 
 
+        case 'ERROR':
+            return {
+                ...state,
+                pokemons:[],
+                load:false,
+                notFound:true
+            }    
 
 
 
 
 
-
-
+    case "CleanStatus":
+      return {
+        ...state,
+        status: null,
+      };
+    
 
 
         case  'GET_TYPES':
@@ -58,12 +78,24 @@ export default function rootReducer (state= initialState, action){
                 typePokemon: action.payload,
                 detail:[]
             }
+
         case 'GET_NAME_POKEMON':
+            let pokeFind = state.allPokemons.filter(val=>{
+                        if (action.payload === '') {
+                            return state.allPokemons
+                        } else if(val.name.toLowerCase().includes(action.payload.toLowerCase())){
+                            return val
+                        }
+                        })
+
             return {
                 ...state,
-                pokemons:action.payload,
-                load:false
+                pokemons:pokeFind,
+                filterANDorder:action.payload === ''?false:true,
+                load:false,
+                notFound:pokeFind[0]!==undefined?false:true
             }
+
         case 'GET_NULL':
             return {
                 ...state,
@@ -75,19 +107,29 @@ export default function rootReducer (state= initialState, action){
                 load:true
             } 
 
+
+        case 'IRENE':
+            if (action.payload ==='t') {
+                return {
+                    ...state,
+                    irene:true
+                }   
+            } else {
+                return {
+                    ...state,
+                    irene:false
+                }                 
+            }
+
+
+
         case 'FILTER_FALSE':
             return {
                 ...state,
                 filterANDorder:false
             } 
 
-        case 'ERROR':
-            return {
-                ...state,
-                pokemons:[],
-                load:false
-            }    
-        case 'POKEMON_ID':
+        case 'POKEMON_DETAIL':
             return {
                 ...state,
                 detail:action.payload
@@ -95,9 +137,9 @@ export default function rootReducer (state= initialState, action){
         
         case 'POST_POKEMON':
             return {
-                ...state
+                ...state,
+                status: action.payload
             }
-
 
         case 'RANDOM_POKEMON':
             let allPoke = state.allPokemons;
@@ -117,24 +159,50 @@ export default function rootReducer (state= initialState, action){
                 randomPokemon:[],
             }  
 
+        // case 'FILTER_BY_TYPE':
+        //     let allFilterPoke = state.allPokemons
+        //     let typesFilt = allFilterPoke.filter(poke=> poke.types.some(e=>e.name === action.payload))
+
+        //     return {
+        //         ...state,
+        //         filterANDorder:action.payload,
+        //         pokemons: typesFilt
+        //     }
+      
+
         case 'FILTER_BY_TYPE':
             let allFilterPoke = state.allPokemons
             let typesFilt = allFilterPoke.filter(poke=> poke.types.some(e=>e.name === action.payload))
 
+            // console.log(action.payload)
+            // console.log(typesFilt)
             return {
                 ...state,
+                page:0,
+                load:false,
+                notFound:false,
+                type:[action.payload],
                 filterANDorder:action.payload,
                 pokemons: typesFilt
             }
-      
+            
+
+
+
+
+
+
+
+
         case 'FILTER_BY_ORDER':
-            // let all = state.allPokemons
-            let ordAsc = state.allPokemons.sort((a,b)=>(a.name < b.name) ? -1: (a.name > b.name)? 1: 0)
+            let all = state.allPokemons
+            let ordAsc = state.pokemons.sort((a,b)=>(a.name < b.name) ? -1: (a.name > b.name)? 1: 0)
 
             if (action.payload==='ASC') {
                 return {
                     ...state,
                     filterANDorder:'A-Z',
+                    load:false,
                     pokemons:ordAsc
                 }
             }
@@ -143,6 +211,7 @@ export default function rootReducer (state= initialState, action){
                 return {
                     ...state,
                     filterANDorder:'Z-A',
+                    load:false,
                     pokemons:ordAsc.reverse()
                 }
             }  
@@ -156,6 +225,7 @@ export default function rootReducer (state= initialState, action){
                 return {
                     ...state,
                     filterANDorder:'highest to lowest',
+                    load:false,
                     pokemons:ord
                 }            
             }
@@ -164,25 +234,32 @@ export default function rootReducer (state= initialState, action){
                 return {
                     ...state,
                     filterANDorder:'lowest to highest',
+                    load:false,
                     pokemons:ord.reverse()
                 }            
             }
 
 
         case 'FILTER_CREATED': 
-            let allPoks=state.allPokemons
-            state.pokemons = allPoks
+            // let allPoks=state.allPokemons
+            // state.pokemons = allPoks
 
             if (action.payload === 'api') {
                 return {
                     ...state,
-                    pokemons:state.pokemons.filter((e)=>e.original)  
+                    page:0,
+                    filterANDorder:'api',
+                    load:false,
+                    pokemons:state.allPokemons.filter((e)=>e.original)  
                 }      
             }
             if (action.payload === 'fan') {
                 return {
                     ...state,
-                    pokemons:state.pokemons.filter((e)=>!e.original) 
+                    page:0,
+                    filterANDorder:'fan',
+                    load:false,
+                    pokemons:state.allPokemons.filter((e)=>!e.original) 
                 }       
             }
 
