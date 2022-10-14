@@ -7,28 +7,6 @@
 	justify-content: $justify;
 } 
 
-
-
-		.remove_random_container{
-			grid-column: 1/3;
-			margin: 0 auto;
-    		max-width: 1400px;
-    		display: flex;
-    		justify-content: space-between;
-
-    		.remove_btn, .random_btn{
-    			cursor: pointer;
-    			background-color: transparent;
-    			
-    			font:600 13px 'Rubik', sans-serif;
-    			display: flex;
-    			gap:5px;
-    			align-items: center;
-    		}
-		}
-
-
-
 .orderANDfilters{
 	color:#fff;
 	background-color: #CF3030;

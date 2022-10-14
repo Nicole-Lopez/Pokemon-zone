@@ -14,34 +14,31 @@ export default function RandomPokemon({open,onClose}) {
 
  	const dispatch = useDispatch()
 	const random = useSelector((state) => state.randomPokemon)
-	const [lis,setLis] = useState(false);
+	const [result, setResult] = useState(false);
 	const [ball,setBall] = useState(true);
-	const [rufus,setRufus] = useState(false);
+	const [explosion, setExplosion] = useState(false);
 
 
     function handleRandom(){
         dispatch(randomPokemon())
         setBall(false)
-        setRufus(true)
+        setExplosion(true)
         
-
         setTimeout(() => {
-        	setRufus(false)
-        	
+        	setExplosion(false)
         }, 780)
 
         setTimeout(() => {
-        	setLis(true)
-        }, 500)
-        
+        	setResult(true)
+        }, 500)        
     }
 
     function close() {
     	onClose()
     	dispatch(cleanRandom())
     	setBall(true)
-    	setLis(false)
-    	setRufus(false)
+    	setResult(false)
+    	setExplosion(false)
     }
 
 	if (!open) return null
@@ -49,19 +46,16 @@ export default function RandomPokemon({open,onClose}) {
 		<div className='overlay'>
 			<div className='popup_container'>
 				<button className='close_btn' onClick={()=>close()}><FontAwesomeIcon icon={faSquareXmark} /></button>
-				{ball?<button onClick={()=>handleRandom()} className='random_popup'><img src={pokeballClose} alt="pok"/></button>:null}
+				{ball && <button onClick={()=>handleRandom()} className='random_popup'><img src={pokeballClose} alt="pok"/></button>}
 
-				{rufus?<img className='random_effect' src={explosionEffect} alt="lalala"/>:null}
+				{explosion && <img className='random_effect' src={explosionEffect} alt="lalala"/>}
 
-				{lis?
+				{result &&
 					random.map(poke=>{
 					return(
-						<div className='random_result'>
-					      <Card key={poke.id} name={poke.name} types={poke.types} image={poke.img} exp={poke.experience}/>
-						</div>
+					    <Card key={poke.id} name={poke.name} types={poke.types} image={poke.img} exp={poke.experience} origin={poke.original}/>
 					)
-					}):null			
-							
+					})
 				}
 			</div>
 		</div>

@@ -142,13 +142,9 @@ export default function rootReducer (state= initialState, action){
             }
 
         case 'RANDOM_POKEMON':
-            let allPoke = state.allPokemons;
-            let rand = Math.floor(Math.random()*allPoke.length);
-            let rValue = allPoke[rand];
-
             return {
                 ...state,
-                randomPokemon:[rValue],
+                randomPokemon:state.allPokemons[Math.floor(Math.random()*state.allPokemons.length)],
             }    
 
 
