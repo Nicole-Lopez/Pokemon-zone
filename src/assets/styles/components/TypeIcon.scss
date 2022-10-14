@@ -1,7 +1,7 @@
 .typeIcon{
 	display: inline;
 	position: relative;
-
+}
 	.typeIcon__icon{
 		max-width: 30px;
 		margin:0 5px;
@@ -34,7 +34,7 @@
 		border-left: 7px solid transparent;
 		border-right: 7px solid transparent;
 	}
-}
+
 
 .typeIcon:hover{
 	.typeIcon__tooltip {
@@ -42,3 +42,16 @@
 		opacity: 1;
 	}	
 } 
+
+@media (min-width: 620px) {
+	.typeIcon__icon{
+		max-width: 45px;
+	}
+
+	.typeIcon__tooltip{
+	    left: -13px;
+	    bottom: 58px;	 
+	}
+
+}
+

@@ -6,9 +6,10 @@ export function getPokemon () {
     return async function (dispatch) {
         try{
         let info= await axios.get(`${urlApi}pokemons`)
+
             return dispatch({        
                 type: 'GET_POKEMONS',
-                payload: info.data
+                payload: info.data.sort(()=> Math.random() - 0.5)
             })
 
         } catch(err){
@@ -35,6 +36,15 @@ export function clear (){
         type: 'CLEAR'
     }
 }
+
+
+export function handleMobile (payload){
+    return {
+        type: 'MOBILE',
+        payload
+    }
+}
+
 
 export function getDetail (name) {
     return async function (dispatch) {
@@ -127,6 +137,13 @@ export function filterFalse(){
     };
 }
 
+export function removeFilters(){
+    return {
+        type: 'REMOVE_FILTERS',
+    };
+}
+
+
 export function randomPokemon(){
     return {
         type: 'RANDOM_POKEMON',
@@ -139,12 +156,6 @@ export function cleanRandom(){
     };
 }
 
-export function ireneMAdrigal(payload){
-    return {
-        type: 'IRENE',
-        payload
-    };
-}
 
 // export function tipoPrueba(payload){
 

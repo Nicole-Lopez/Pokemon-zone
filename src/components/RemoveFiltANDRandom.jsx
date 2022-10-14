@@ -1,33 +1,23 @@
 import React, {useState} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
-
+import {useDispatch} from 'react-redux'
 import {
-    filterByOrder,
-    orderByExp,
-    filterByOrigin,
-    filterByType,
-    filterFalse,
-    setPage,
-    ireneMAdrigal
+    removeFilters,
+    pagination
 } from "../redux/actions/index"
 import '../assets/styles/components/Filter.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown,faChevronUp,faFilterCircleXmark } from '@fortawesome/free-solid-svg-icons'
+import { faFilterCircleXmark } from '@fortawesome/free-solid-svg-icons'
 import RandomPokemon from "./RandomPokemon"
-import TypesSearch from './TypesSearch'
 
 
 export default function RemoveFiltANDRandom() {
  	const dispatch = useDispatch()
-  	const filterANDorder = useSelector((state) => state.filterANDorder)
 
-     const irene = useSelector((state) => state.irene)
     const [openRandom,setOpenRandom] = useState(false);    
 
     function handleRemove(){
-        dispatch(setPage()); 
-        dispatch(filterFalse())
-        dispatch(ireneMAdrigal('f'))
+        dispatch(removeFilters())
+        dispatch(pagination())
     }
 
 

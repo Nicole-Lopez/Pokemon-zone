@@ -1,9 +1,10 @@
 .searchBar{
 	position: relative;
 	justify-self: end;
+	// margin-left: 30px;
 
 	input{
-		width: 150px;
+		width: 115px;
 		height: 35px;
 		padding: 0 50px;
 		border: none;
@@ -22,3 +23,13 @@
 		cursor: text;
 	}
 }
+
+@media (min-width: 1100px) {
+	.searchBar{
+		order: 3;
+		justify-self: center;
+	}
+
+
+}
+

@@ -24,7 +24,7 @@
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.1",
     "sass": "^1.52.3",
-    "usehooks-ts": "^2.6.0",
+    "usehooks-ts": "^2.7.2",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
@@ -39,16 +39,10 @@
       "react-app/jest"
     ]
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ]
+  
 }

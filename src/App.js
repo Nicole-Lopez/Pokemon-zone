@@ -3,6 +3,7 @@ import HomePage from './containers/HomePage'
 import DetailsPokemon from './containers/DetailsPokemon'
 import PokemonCreate from './containers/PokemonCreate'
 import Fantasma from './containers/Fantasma'
+import Navbar from './containers/Hypeboy'
 
 
 function App() {
@@ -14,6 +15,8 @@ function App() {
       				<Route exact path="/detail/:name" element={<DetailsPokemon />} />
       				<Route exact path="/pokemons/create" element={<PokemonCreate />} />
       				<Route exact path="/pokemons/ops" element={<Fantasma />} />
+
+      				<Route exact path="/hype" element={<Navbar />} />
 
 			  	</Routes>
 			</BrowserRouter>  		     

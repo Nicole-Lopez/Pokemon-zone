@@ -1,55 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&family=Rubik&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alatsi&family=Kdam+Thmor+Pro&display=swap');
+
+@mixin displayFlex($direction, $justify) {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: $direction;
+	justify-content: $justify;
+} 
 
 
-		// .order_and_filters{
-		// 	position: sticky;
-		// 	top:0;
-		// 	text-align: center;
-
-		// 	margin:20px auto;
-		// 	position: sticky;
-		// 	top:0;
-
-		// 	.select{
-		// 		position: relative;
-		// 		display: inline-block;
-		// 		margin: 10px;
-
-		// 		.option_main{
-		// 			cursor: pointer;
-		// 			min-width: 260px;
-		// 			min-height: 40px;
-		// 			background-color:#CF3030;
-		// 			color:#fff;
-		// 			border: none;
-		// 			border-radius: 20px;
-		// 			position: relative;
-		// 			font: 500 15px 'Kdam Thmor Pro', sans-serif;
-
-		// 				span{
-		// 					position: absolute;
-		// 				    right: 15px;
-		// 				}
-		// 		}
-		// 		.option_container{ 
-		// 			position: absolute;
-		// 			left:20px;
-
-		// 				button{
-		// 					cursor: pointer;
-		// 					display: block;
-		// 					min-width: 220px;
-		// 					min-height: 40px;
-		// 					border: 1px solid silver;
-		// 					background-color: #e75c5c;
-		// 					color:#fff;							
-		// 				}
-		// 				button:last-child {
-		// 				  	border-radius: 0 0 20px 20px;
-		// 				}
-		// 		}
-		// 	}
-		// }
 
 		.remove_random_container{
 			grid-column: 1/3;
@@ -61,7 +19,7 @@
     		.remove_btn, .random_btn{
     			cursor: pointer;
     			background-color: transparent;
-    			border: none;
+    			
     			font:600 13px 'Rubik', sans-serif;
     			display: flex;
     			gap:5px;
@@ -79,41 +37,160 @@
 	font: 500 15px 'Kdam Thmor Pro', sans-serif;
 }
 
-	.select{
-		position: relative;
-		display: inline-block;
-		margin: 10px;
-
-			.option_main{
-				cursor: pointer;
-				text-align: left;
-
-				min-width: 260px;
-				// min-height: 40px;
-				background-color:#CF3030;
-				color:#fff;
-				border: none;
-				border-radius: 20px;
-				position: relative;
-				font: 500 15px 'Kdam Thmor Pro', sans-serif;
-
-					span{
-						position: absolute;
-					    right: 15px;
-					}
-			}
-			.option_container{ 
-				
-					button{
-						// display: block;
-						color:#fff;
-						border: none;
-						background-color: transparent;
-						text-align: left;
-						padding-left: 25px;		
-						font: 500 15px 'Kdam Thmor Pro', sans-serif;
-
-					}
-			}
-
+.orderANDfilters__order, .orderANDfilters__filter{
+	margin: 30px 0;
+	p{
+		font: 500 19px 'Kdam Thmor Pro', sans-serif;
 	}
+}
+
+.select{
+	position: relative;
+	margin: 5px 10px;
+}
+
+.select__optionMain{
+	text-align: left;
+	color:#fff;
+	margin: 5px 0;
+	font: 500 18px 'Kdam Thmor Pro', sans-serif;
+
+	.select__optionMain__arrow{
+		position: absolute;
+	    right: 15px;
+	    top:10px;
+	}
+}
+
+.select__options{ 
+	overflow: hidden;
+	height: 0;
+	transition: height 0.5s cubic-bezier(.22,.61,.36,1);
+	
+	button{
+		display: block;
+		color:#fff;
+		padding: 4px 25px;		
+		font: 500 20px 'Alatsi', sans-serif;
+	}
+}
+.select__options.open{ 
+	height: 75px;
+}
+
+.select__options--type{
+	input{
+		margin:10px;
+		max-width: 175px;
+	    font-size: 17px;
+	    padding: 5px 8px;
+	    border-radius: 5px;
+	    border:none;
+	    background-color: #fff;
+	}
+
+	button{
+		@include displayFlex(row-reverse, flex-end);
+		min-width: 150px;
+		padding: 5px 0;
+		
+		img{
+			padding-right: 5px;
+			width: 30px;
+		}
+	}
+}
+
+.select__options--type>div{
+	@include displayFlex(row, flex-start);
+	padding: 6px 25px;
+}
+
+
+@media (min-width: 1100px) {
+
+	.orderANDfilters{
+		@include displayFlex(row, center);
+		padding: 0;
+		background-color: transparent;
+	}
+
+	.orderANDfilters__order{
+		@include displayFlex(column, flex-end);
+	}	
+
+	.orderANDfilters__order, .orderANDfilters__filter {
+	    margin: 0; 
+	}
+
+
+
+	.orderANDfilters__order>p,.orderANDfilters__filter>p{
+		background-color: #B41919;
+		width: 240px;
+		padding: 5px 10px;
+		margin:1px;
+		text-align: center;
+	}
+
+	.orderANDfilters__order>p{
+		align-self: flex-end;
+		border-radius: 15px 0 0 0;
+	}	
+
+	.orderANDfilters__filter>p{
+		border-radius: 0 15px 0 0;		
+	}
+
+	.orderANDfilters__order>div,.orderANDfilters__filter>div{
+		@include displayFlex(row, flex-start);
+	}
+
+	.select{
+		max-width: 300px;
+		margin:1px;
+	}
+
+	.select__optionMain{
+		position: relative;
+		background-color: #CF3030;		
+		text-align: center;
+		padding: 5px 10px;
+		margin: 0;
+		min-width: 260px;
+	}
+	.orderANDfilters__order>div div:first-child .select__optionMain{
+		border-radius: 15px 0 0 15px;
+	}	
+	.orderANDfilters__filter>div div:last-child .select__optionMain{
+		border-radius: 0 15px 15px 0;
+	}	
+
+	.select__options{
+		position: absolute;
+		right: 25px;
+
+		button{
+			background-color: #d95d5d;
+			width: 210px;
+			border-top:1px solid silver;
+		}
+	}
+	.select__options button:last-child,.select__options--type.open{
+		border-radius: 0 0 15px 15px;
+	}
+	.select__options--type{
+		background-color: #d95d5d;
+		width: 210px;
+
+		button{
+			padding: 6px 20px;
+		}
+	}
+	.select__options--type>div{
+		padding: 0;
+	}
+	.select__options--type.open{ 
+		height: 830px;
+	}
+}

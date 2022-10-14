@@ -17,18 +17,18 @@ export default function SearchBar (){
 
     const [name, setName]= useState("")
 
-    useEffect(() => {
-        dispatch(setPage());
-        dispatch(getPokeName(name))
-        dispatch(pagination())
+    // useEffect(() => {
+    //     dispatch(setPage());
+    //     dispatch(getPokeName(name))
+    //     dispatch(pagination())
         
-        if (name === "") {
-            return navigate('/');
-        } else {
-            return navigate(`?name=${name}`);
-        }
+    //     if (name === "") {
+    //         return navigate('/');
+    //     } else {
+    //         return navigate(`?name=${name}`);
+    //     }
         
-    }, [name])
+    // }, [name])
 
     function handleSearch(e){
         setName(e)

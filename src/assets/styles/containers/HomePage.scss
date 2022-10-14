@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&family=Rubik&display=swap');
+
 body{
-	background: rgb(70,183,186);
 	background: linear-gradient(288deg, rgba(70,183,186,1) 0%, rgba(123,214,171,1) 100%);
+	min-height: 100vh;
 }
 
 .home{
@@ -8,7 +10,8 @@ body{
 	display: grid;
 	grid-template-columns:2fr 1fr;
 	align-items: center;
-		
+}
+
 	.home__logo{
 		max-width: 150px;
 		justify-self: end;
@@ -29,12 +32,6 @@ body{
 		}
 	}
 
-	.home__filters{
-		position: absolute;
-		top:0;
-		left:0;
-	}
-
 	.filter_icon{
 		font-size: 30px;
 		padding-left:20px;
@@ -43,11 +40,16 @@ body{
 	.home__removeFilterANDrandom{
 		grid-column: 1/3;
 		margin: 20px 0 5px 0;
+		max-width: 1500px;
+		// width: 95%;
+		justify-self: center;
 	}
 
 
 	.home__cards{
 		grid-column: 1/3;
+		max-width: 1500px;
+		justify-self: center;
 
 		.home__cards__container{
 			display: flex;
@@ -63,4 +65,96 @@ body{
 			}
 		}
 	}
+
+
+.home__removeFilterANDrandom{
+	width: 95%;
 }
+
+.home__filters .fa-x{
+  font-size: 20px;
+  color: #fff;
+  position: absolute;
+  z-index: 5;
+  top: 20px;
+  right: 5%;
+}
+
+
+.home__filters__menuResponsive {
+	position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+	overflow: hidden;
+	width: 0;
+	transition: width 0.5s cubic-bezier(.22,.61,.36,1);
+}
+
+.home__filters__menuResponsive.open {
+    width: 100%;
+}
+
+
+
+@media (min-width: 620px) {
+	.home__removeFilterANDrandom{
+		width: 90%;
+	}
+}
+
+
+@media (min-width: 1100px) {
+
+	.home{
+		grid-template-columns:1fr 1fr 1fr;
+	}
+	
+	.home__filters{
+		grid-column: 1/4;
+		order: 4;
+		position: sticky;
+		top:5px;
+		z-index: 900;
+	}	
+
+	.home__createBTN{
+		order: 1;
+	}
+
+	.home__logo{
+		order: 2;
+		max-width: 230px;
+		justify-self: center;
+		padding: 0;
+	}
+
+	.home__removeFilterANDrandom{
+		order: 5;
+		grid-column: 1/4;		
+	}
+
+	.home__cards{
+		order: 6;
+		grid-column: 1/4;
+	}
+
+
+	.home__createBTN{
+		max-width: 180px;
+		justify-self: center;
+		
+		button>span{
+			color:white;
+			font:600 18px 'Rubik', sans-serif;
+			vertical-align: middle;
+			padding-right: 2px;
+		}
+	}
+
+
+
+
+}
+
+

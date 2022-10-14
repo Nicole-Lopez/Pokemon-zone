@@ -32,6 +32,8 @@ q:before, q:after {
 button{
 	outline: none;
 	cursor: pointer;
+	border: none;
+	background-color: transparent;
 }
 input{
 	outline: none;
