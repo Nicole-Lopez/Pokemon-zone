@@ -1,10 +1,9 @@
 .searchBar{
 	position: relative;
 	justify-self: end;
-	// margin-left: 30px;
 
 	input{
-		width: 115px;
+		width: 120px;
 		height: 35px;
 		padding: 0 50px;
 		border: none;
@@ -14,13 +13,12 @@
 		color: #476B6A;
 	}
 
-	.searchBar__icon{
+	.fa-magnifying-glass{
 	    position: absolute;
 		top: 8px;
 		left: 15px;
 		color: #476B6A;
 		font-size: 18px;
-		cursor: text;
 	}
 }
 
@@ -29,7 +27,5 @@
 		order: 3;
 		justify-self: center;
 	}
-
-
 }
 

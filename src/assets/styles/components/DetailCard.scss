@@ -1,136 +1,196 @@
 @import url('https://fonts.googleapis.com/css2?family=Goldman&family=Rubik&family=Saira&display=swap');
 
-$dark_green_color: #476B6A;
 $silver_line:solid silver 1px;
-
 $saira_font:'Saira', sans-serif;
 $goldman_font: 'Goldman', cursive;
 
+@mixin imageSize($size, $top, $widthCard) {
+	position: absolute;
+	top: $top;
+	left: calc(($widthCard - $size)/2);
+	max-height: $size;
+	max-width: $size;
+	min-width: $size;
+	min-height: $size;
+} 
 
-#detail_card_container_main{
-	background-color:$dark_green_color;
-	max-width: 750px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+.detail-card{
+	max-width: 290px;
+	background-color:#A68DDB;
 	padding-top: 20px;
 	border-radius: 20px;
 
-		.pro_cont{
-			max-width: 400px;
-			background-color: #959292;
-			animation: background 2s ease forwards;
-			border-radius:8px;
+	&__exp{
+		font: 400 30px 'Rubik', sans-serif;
+		color: #fff;
+		text-align: center;
+	}
 
-				.progress_bar{
-					height: 20px;
+	.progress_circle{
+		max-height: 150px;
+		margin: auto;
+	}
+
+	&__info{
+		position: relative;
+		border-radius: 0 0 20px 20px; 
+		background-color: #fff;
+		width: 290px;
+		text-align: center;
+		padding: 20px 0 10px 0;
+	}
+	
+	&__image{
+		@include imageSize(120px, -95px, 290px);
+	}
+
+	h1{
+		font: 400 40px $goldman_font;
+	}
+
+	&__table{
+		margin: 5px auto 0 auto;
+		display: flex;
+		justify-content: center;
+		align-items: flex-end;
+		padding-bottom: 10px;
+		border-bottom:$silver_line;
+		max-width: 270px;
+
+		.table{
+			width: 90px;
+
+			&__value{
+				color: #476B6A;
+				font: 400 20px $goldman_font;
+				padding: 8px;
+
+				span{
+					font-size: 15px;
+				}
+			}
+
+			&__title{
+				font: 700 16px $saira_font;
+			}	
+		}
+
+		.table--weight{
+			.table__value{
+				border-left: $silver_line;
+				border-right: $silver_line;
+			}
+		}
+	}
+
+	&__statistics-container{
+		color: #476B6A;
+		font: 700 17px $saira_font;
+
+		.statistics{
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+			margin:15px 0;
+			padding: 0 20px;
+
+
+			&__progress-bar-horizontal{
+				max-width: 320px;
+				background-color: #959292;
+				border-radius:8px;
+				animation: background 2s ease forwards;
+
+				div{
+					height: 15px;
 				    border-radius:8px;
 				}
-		}
+			}
 
-		.detail_exp{
-			font: 400 45px 'Rubik', sans-serif;
-			color: #fff;
+			&__title{					
+			    min-width: 80px;
+	 			text-align: left;
+			}
+
+			&__info{
+				display: flex;
+				justify-content: flex-end;
+				align-items: center;
+				min-width: 80px;
+	 			text-align: right;	
+				
+				.icon{
+					width: 30px;
+					padding-left: 5px;
+				}			
+			}
+		}
+	}
+		
+}
+
+@media (min-width: 620px) {
+	.detail-card{
+		max-width: 480px;
+
+		&__exp{
+			font-size: 45px;
 		}
 		.progress_circle{
-			max-height: 314px;
+			max-height: 210px;
 		}
 
-		.detail_info_container{
-			position: relative;
-			border-radius: 0 0 20px 20px; 
-			background-color: #fff;
-			width: 750px;
-			text-align: center;
-			padding: 35px 0 10px 0;
-
-				.detail_pokemon_img{
-					max-height: 280px;
-					max-width: 280px;
-					min-width: 280px;
-					min-height: 280px;
-					position: absolute;
-					top:-240px;
-					left: calc((750px - 280px)/2);
-				}
-
-				h1{
-					font: 400 60px $goldman_font;
-				}
-
-				.table_container{
-					margin: 20px auto 0 auto;
-					display: flex;
-					justify-content: center;
-					align-items: flex-end;
-					padding-bottom: 20px;
-					border-bottom:$silver_line;
-					max-width: 600px;
-
-						.detail_info{
-							color: $dark_green_color;
-							font: 400 35px $goldman_font;
-			    			padding:0 50px 10px 50px;
-
-			    			span{
-			    				font-size: 25px;
-			    			}
-						}
-						.detail_info_title{
-							font: 700 20px $saira_font;
-						}			
-
-
-						.detail_types{
-							.detail_icon_type{
-								min-width: 100px;
-								border-right:$silver_line;
-								padding:0 50px 10px 0;
-							}	
-							.detail_info_title{
-								margin-right: 50px;
-							}		
-						}
-
-						.detail_height{
-							.detail_info{
-								border-left:$silver_line;
-								padding:0 0 10px 50px;
-							}
-							.detail_info_title{
-								margin-left: 50px;
-							}
-						}
-				}
-
-				.statistics_container{
-					color: $dark_green_color;
-					font: 700 25px $saira_font;
-
-						.detail_container{
-							display: flex;
-							flex-direction: row;
-							margin:25px 0;
-							align-items: baseline;
-							justify-content: center;
-
-								.detail_info_title{					
-								    min-width: 150px;
-				    				text-align: left;
-								}
-
-								.detail_info{
-									min-width: 130px;
-				    				text-align: right;	
-									
-										.icon{
-											width: 50px;
-										}			
-								}
-						}
-				}
+		&__info{
+			width: 480px;
+			padding: 40px 0 20px 0;
 		}
+		
+		&__image{
+			@include imageSize(200px, -150px, 480px);
+		}
+
+		h1{
+			font-size: 60px;
+		}
+
+		&__table{
+			max-width: 420px;
+
+			.table{
+				width: 140px;
+
+				&__value{
+					font-size: 30px;
+
+	    			span{
+	    				font-size: 20px;
+	    			}
+				}
+
+				&__title{
+					padding-top: 5px;
+					font-size: 20px;
+				}	
+			}
+
+		}
+
+		&__statistics-container{
+			font-size: 22px;
+
+			.statistics{
+				padding: 0 30px;
+
+				&__title{					
+				    min-width: 90px;
+				}
+			}
+		}
+	}
 }
+
+
 
 @keyframes background {
     0% {width: 0;}

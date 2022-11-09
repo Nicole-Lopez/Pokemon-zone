@@ -1,0 +1,21 @@
+.detail-item-hall{
+    // display: flex;
+    margin: auto;
+    border: #633115 3vw solid;
+    border-bottom: #633115 1vw solid;
+    background-color: #633115;
+
+    img{
+        object-fit: contain;
+        max-height: 70vh;
+        max-width: 70vw;
+    }
+    
+    p{
+        padding: 1.5vw 0;
+        font-family: 'Jura', sans-serif;
+        color:#fff;
+        font-size: calc(5px + 1vw);
+        
+    }
+}

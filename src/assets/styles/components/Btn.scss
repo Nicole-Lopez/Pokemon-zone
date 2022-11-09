@@ -1,0 +1,26 @@
+.btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	font:600 18px 'Merriweather Sans', sans-serif;
+	color:#fff;
+	width: 15vw;
+    height: 35px;
+    min-width: 120px;
+    max-width: 200px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.09);
+
+	&--submit{
+		background-color: #324ff1;
+
+		&:disabled,
+		&[disabled]{
+		  opacity: 0.6;
+		  cursor: default;
+		}
+	}
+	&--cancel{
+		background-color: #FF2D2D;
+	}
+
+}

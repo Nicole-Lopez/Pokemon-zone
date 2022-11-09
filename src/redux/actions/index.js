@@ -45,6 +45,13 @@ export function handleMobile (payload){
     }
 }
 
+export function searchPokemon (payload){
+    return {
+        type: 'SEARCH',
+        payload
+    }
+}
+
 
 export function getDetail (name) {
     return async function (dispatch) {
@@ -96,6 +103,20 @@ export const pokemonCreate = (payload) => {
         })
     }
 }
+
+export const itemHallCreate = (payload,namePokemon) => {
+    return async function (dispatch){
+        await axios.post(`${urlApi}hall/${namePokemon}`, payload).then((res)=>{
+            dispatch({
+                type: "POST_ITEM_HALL",
+                payload: res.data,
+            })
+        })
+    }
+}
+
+
+
 export const CleanStatus = () => {
   return {
     type: "CleanStatus",

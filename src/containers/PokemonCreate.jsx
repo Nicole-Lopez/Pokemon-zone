@@ -1,22 +1,28 @@
 import React,{ useEffect , useState} from 'react'
+import {useParams} from 'react-router-dom'
 import DetailCard from '../components/DetailCard'
 import '../assets/styles/containers/PokemonCreate.scss';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCirclePlus,faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown,faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import  TypesSearch from '../components/TypesSearch'
-import { pokemonCreate, getType,CleanStatus} from '../redux/actions/index'
+import { pokemonCreate, CleanStatus} from '../redux/actions/index'
 import { CirclesWithBar,ThreeCircles } from  'react-loader-spinner'
+import BtnCancel from "../components/BtnCancel"
+import BtnCreate from "../components/BtnCreate"
+import { useWindowSize } from 'usehooks-ts'
 
 export default function PokemonCreate() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();	
   	const status = useSelector((state) => state.status);
+  	const { width } = useWindowSize()
 
-	const [showTypeOne,setShowTypeOne] = useState(false);
-	const [showTypeTwo,setShowTypeTwo] = useState(false);
+  	const [previewOpen, setPreviewOpen] = useState(false)
+
+	const [showType, setShowType] = useState([false, false])
 	const [typeSelects, setTypeSelects] = useState([undefined,undefined])
 
 	const [loadImage, setLoadImage] = useState(false)
@@ -34,7 +40,7 @@ export default function PokemonCreate() {
 		speed: "",
 		height: "",
 		weight: "",
-		tipos: []
+		types: []
 	})
 
 	const uploadImage = async (e)=>{
@@ -53,46 +59,35 @@ export default function PokemonCreate() {
 		})
 	}
 
-	const handleShowType = (e,val) => {
-        e.preventDefault();
-        if (val === 'one') {
-			setShowTypeOne(!showTypeOne)
-        	setShowTypeTwo(false)
-        } 
-        if (val === 'two') {
-        	setShowTypeOne(false)	
-			setShowTypeTwo(!showTypeTwo)
-        }
+	const handleShowType = (e) => {
+		setShowType([
+			e.target.value === '0'? !showType[0]:false,
+			e.target.value === '1'? !showType[1]:false
+		])
 	}
 
-    const handleFilterType = (e,arg)=>{
-        e.preventDefault();
-        // console.log(e.target.value)
-        console.log(input.tipos.find(item => item === e.target.value))
-		if (!input.tipos.find(item => item === e.target.value)) {
-	        if (arg==='one') {
-		        setTypeSelects([{
-		        	name:e.target.value,
-		        	icon:e.target.childNodes[2].currentSrc
-		        }, typeSelects[1]])
-		        setShowTypeOne(false)
-	    	}
+	const handleSelectType = (e) => {
+    	if (!input.types.find(item => item === e.target.attributes.value.nodeValue)) {
+			let item = {
+				name:e.target.attributes.value.nodeValue,
+				icon:e.target.attributes[0].nodeValue				
+			}
 
-	        if (arg==='two') {
-		        setTypeSelects([typeSelects[0], {
-		        	name:e.target.value,
-		        	icon:e.target.childNodes[2].currentSrc
-		        }])
-		        setShowTypeTwo(false)
-	    	}   
-	    }
-    }
+			setTypeSelects([
+				showType[0]?item:typeSelects[0],
+				showType[1]?item:typeSelects[1]
+			])
 
+			setShowType([false, false])
+		}		
+
+	}
 
 	const handleDeleteType = (e)=> {
-        e.preventDefault();
-        if (e.target.value === 'one') setTypeSelects([undefined, typeSelects[1]])        	
-        if (e.target.value === 'two') setTypeSelects([typeSelects[0], undefined])        
+        setTypeSelects([
+        	e.target.value === '0'? undefined : typeSelects[0],
+        	e.target.value === '1'? undefined : typeSelects[1] 
+        ])        
 	}
 
 	const handleChange = (e) =>{
@@ -130,288 +125,244 @@ export default function PokemonCreate() {
 	useEffect(() => {
 		setInput({
 			...input,
-			tipos: typeSelects.filter((item) => item !== undefined).map(n=>n.name)
+			types: typeSelects.filter((item) => item !== undefined).map(n=>n.name)
 		})
 	}, [typeSelects])
 
 	useEffect(() => {
-		(input.name.length > 0 && input.tipos.length >= 1 && !Object.keys(errors).length)? setDisableSubmit(false):setDisableSubmit(true)			
+		setDisableSubmit(input.name.length <= 0 || input.types.length < 1 || Object.values(errors).includes(true))
 		console.log(input)
 	}, [input])
 
+	useEffect(() => {
+		if (width>=920) setPreviewOpen(true)
+	}, [width])
 
-	const wordValidation = (name) => {
-	    let regularExp = new RegExp(/^([A-Za-z]-?){0,10}[A-Za-z]$/i);
-	    return regularExp.test(name);
-	};
-
-	const numberValidation = (number,type) => {
-	    let regularExpNumberNotDecimal = new RegExp(/^[0-9]*$/i);
-	    let regularExpNumberWithDecimal = new RegExp(/^(\d)*(\.)?([0-9]{1})$/i);
-
-		if (type==='experience') return (regularExpNumberNotDecimal.test(number) && number>= 5 && number <= 300)?false:true
-		if (type==='stadistic') return (regularExpNumberNotDecimal.test(number) && number>= 5 && number <= 200)?false:true
-		if (type==='weight' || type==='height') return (regularExpNumberWithDecimal.test(number) && number>= 1 && number <= 1000)?false:true
-	};
 
 	const validate=(input)=>{
 	    let error = {};
-	    if (!wordValidation(input.name)) error.name = "NAME ERROR"
-	    if (!input.name.length) error.name = null
+	    let notDecimal = new RegExp(/^[0-9]*$/i);
+	    let withDecimal = new RegExp(/^(\d)*(\.)?([0-9]{1})$/i);
+	    let wordOnlyLetters = new RegExp(/^([A-Za-z]-?){0,10}[A-Za-z]$/i);
 
-	    if (numberValidation(input.experience,'experience')) error.experience = 'EXP ERROR'
-	    if (!input.experience.length) error.experience = null
-		    	    
-	    if (numberValidation(input.hp,'stadistic')) error.hp = 'HP ERROR'
-	    if (!input.hp.length) error.hp = null
+		Object.entries(input).forEach(([key, value]) => {
+			if (key === 'name') {
+		    	error[key] = (wordOnlyLetters.test(input[key]))?null:true
+			}
+			else if (key === 'img' || key === 'types') {
+				error[key] = null
+			} else if (key === 'weight' || key === 'height') {
+		    	error[key] = !withDecimal.test(input[key]) || value<1 || value>1000?true:null		    
+		    } else {
+		    	error[key] = !notDecimal.test(input[key]) || value<5 || value>300?true:null
+		    }
 
-	    if (numberValidation(input.attack,'stadistic')) error.attack = 'ATTACK ERROR'     
-	    if (!input.attack.length) error.attack = null
-	     
-	    if (numberValidation(input.defense,'stadistic')) error.defense = 'DEFENSE ERROR'
-	    if (!input.defense.length) error.defense = null
-	     
-	    if (numberValidation(input.speed,'stadistic')) error.speed = 'SPEED ERROR'
-	    if (!input.speed.length) error.speed = null
-	         
-	    if (numberValidation(input.weight,'weight')) error.weight = 'WEIGHT ERROR'
-	    if (!input.weight.length) error.weight = null
-	    
-	    if (numberValidation(input.height,'height')) error.height = 'HEIGHT ERROR'
-	    if (!input.height.length) error.height = null
-	    
+		    if (!value.length) error[key] = null
+		});
+
 	    return error;
 	}
 
 
-
 	return (
-		<div className='create_pokemon_container'>
-	        
-	        <div className={loadSubmit?'detail_card_load':'detail_card'}>
-		        <DetailCard
-			        name={input.name?input.name:'NAME'}
-			        img={input.img}
-			        type={typeSelects.filter((item) => item !== undefined)}
-			        weight={input.weight?input.weight : 5}
-			        height={input.height?input.height : 5}
-			        attack={input.attack>200? 5:input.attack?input.attack : 5}
-			        defense={input.defense>200? 5:input.defense?input.defense: 5}
-			        speed={input.speed>200? 5:input.speed?input.speed:5}
-			        hp={input.hp>200? 5:input.hp?input.hp: 5}
-			        exp={input.experience>300? 5:input.experience?input.experience: 5}
-			        convertValue={false}
-		        />
-	        {loadImage?
-	        	<div className='loader_image'>
-		        	<CirclesWithBar
-						height="100"
-						width="100"
-						color="#ffcf00"
-						visible={true}
-						ariaLabel='circles-with-bar-loading'
-					/>		        		
-	        	</div>
-	        :null}
+		<div className='pokemon-create'>
+			<h1>CREATE YOUR POKEMON</h1>
 
-	        {loadSubmit?		        	
-	        	<div className='loader_submit'>
-					<ThreeCircles
-						height="300"
-						width="300"
-						color="red"
-						visible={true}
-						ariaLabel="three-circles-rotating"
-						innerCircleColor="#0088ff"
-					/>       		
-	        	</div>
-	        :null}
+			<form autoComplete="off">
+				<div className='form-container'>
+					<div className='form-container__row--image'>
+				        {loadImage?
+				        <div className='loader-image'>
+					     	<CirclesWithBar
+								height="100"
+								width="100"
+								color="#ffcf00"
+								visible={true}
+								ariaLabel='circles-with-bar-loading'
+							/>		        		
+				        </div> : 						
+			        	<div className='input-image' disabled={loadSubmit}>
+							<p>Select image</p>
+							<input 
+								type="file"
+								onChange={(e)=>uploadImage(e)}
+								disabled={loadImage||loadSubmit}
+							/>						
+						</div>}					
+						<img src={input.img} alt="Select image"/>		
+					</div>
 
-			</div>
-			
-			<div className="background_figure"></div>
+					<div className='form-container__row'>
+						<label>Name</label>
+						<input 
+							type="text"
+							placeholder="Up to 10 characters"
+							value={input.name}
+							name="name" 
+							onChange={(e)=>handleChange(e)}
+							maxLength={10}
+							className={`input-text ${errors.name?'input-text__error':input.name?'input-text__correct':null}`} 
+							disabled={loadSubmit}
+						/>
+					</div>
 
-			<form className='form_create' autoComplete="off">
+					<div className='form-container__row'>
+						<label>Experience</label>
+						<input 
+							type="text"
+							placeholder="5 - 300"
+							value={input.experience}
+							name="experience" 
+							onChange={(e)=>handleChange(e)}
+							maxLength={3}
+							className={`input-text ${errors.experience?'input-text__error':input.experience?'input-text__correct':null}`} 
+							disabled={loadSubmit}
+						/>
+					</div>
 
+					<div className='form-container__row'>
+						<label>Attack</label>
+						<input 
+							type="text"
+							placeholder="5 - 300"
+							value={input.attack}
+							name="attack" 
+							onChange={(e)=>handleChange(e)}
+							maxLength={3}
+							className={`input-text ${errors.attack?'input-text__error':input.attack?'input-text__correct':null}`} 
+							disabled={loadSubmit}
+						/>
+					</div>
 
-				<div className="title">
-					<h1>CREATE YOUR POKEMON</h1>
-			        <div className='underline'></div>
-				</div>				
+					<div className='form-container__row'>
+						<label>Defense</label>
+						<input 
+							type="text"
+							placeholder="5 - 300"
+							value={input.defense}
+							name="defense" 
+							onChange={(e)=>handleChange(e)}	
+							maxLength={3}
+							className={`input-text ${errors.defense?'input-text__error':input.defense?'input-text__correct':null}`} 
+							disabled={loadSubmit}
+						/>
+					</div>
 
-				<div className='form_input_large'>
-					<label>Name: </label>
-					<input 
-						type="text"
-						value={input.name}
-						name="name" 
-						onChange={(e)=>handleChange(e)}
-						maxLength={10}
-						className={errors.name?'input_error':input.name?'input_correct':'input_normal'}
-						disabled={loadSubmit}
-					/>
-				</div>
+					<div className='form-container__row'>
+						<label>Speed</label>
+						<input 
+							type="text"
+							placeholder="5 - 300"
+							value={input.speed}
+							name="speed" 
+							onChange={(e)=>handleChange(e)}	
+							maxLength={3}
+							className={`input-text ${errors.speed?'input-text__error':input.speed?'input-text__correct':null}`} 
+							disabled={loadSubmit}
+						/>
+					</div>	
 
-				<div className='form_input_large'>
-					<label>Image: </label>
-					<input 
-						type="file"
-						onChange={(e)=>uploadImage(e)}
-						className='input_img'
-						disabled={loadImage||loadSubmit}
-					/>
-				</div>
+					<div className='form-container__row'>
+						<label>HP</label>
+						<input 
+							type="text"
+							placeholder="5 - 300"
+							value={input.hp}
+							name="hp" 
+							onChange={(e)=>handleChange(e)}
+							maxLength={3}
+							className={`input-text ${errors.hp?'input-text__error':input.hp?'input-text__correct':null}`} 
+							disabled={loadSubmit}
+						/>
+					</div>
 
-				<div className='form_input_short'>
-					<label>Experience: </label>
-					<span className='span_exp'>exp</span>
-					<input 
-						type="text"
-						placeholder='5 - 300'
-						value={input.experience}
-						name="experience" 
-						onChange={(e)=>handleChange(e)}
-						maxLength={3}
-						className={errors.experience?'input_error':input.experience?'input_correct':'input_normal'}
-						disabled={loadSubmit}
-					/>
-				</div>
+					<div className='form-container__row'>
+						<label>Weight</label>
+						<input 
+							type="text"
+							placeholder="1 - 1000"
+							value={input.weight}
+							name="weight" 
+							onChange={(e)=>handleChange(e)}
+							maxLength={5}
+							className={`input-text ${errors.weight?'input-text__error':input.weight?'input-text__correct':null}`} 
+							disabled={loadSubmit}
+						/>
+						<span>kg</span>
+					</div>	
 
-				<div className='form_input_short'>
-					<label>Attack: </label>
-					<input 
-						type="text"
-						placeholder='5 - 200'
-						value={input.attack}
-						name="attack" 
-						onChange={(e)=>handleChange(e)}
-						maxLength={3}
-						className={errors.attack?'input_error':input.attack?'input_correct':'input_normal'}
-						disabled={loadSubmit}
-					/>
-				</div>
+					<div className='form-container__row'>
+						<label>Height</label>
+						<input  
+							type="text" 
+							placeholder="1 - 1000" 
+							value={input.height} 
+							name="height"  
+							onChange={(e)=>handleChange(e)}	 
+							maxLength={5} 
+							className={`input-text ${errors.height?'input-text__error':input.height?'input-text__correct':null}`} 
+							disabled={loadSubmit}
+						/>
+						<span>m</span>
+					</div>
 
-				<div className='form_input_short'>
-					<label>Defense: </label>
-					<input 
-						type="text"
-						placeholder='5 - 200'
-						value={input.defense}
-						name="defense" 
-						onChange={(e)=>handleChange(e)}	
-						maxLength={3}
-						className={errors.defense?'input_error':input.defense?'input_correct':'input_normal'}
-						disabled={loadSubmit}
-					/>
-				</div>
-
-				<div className='form_input_short'>
-					<label>Speed: </label>
-					<input 
-						type="text"
-						placeholder='5 - 200'
-						value={input.speed}
-						name="speed" 
-						onChange={(e)=>handleChange(e)}	
-						maxLength={3}
-						className={errors.speed?'input_error':input.speed?'input_correct':'input_normal'}
-						disabled={loadSubmit}
-					/>
-				</div>	
-
-				<div className='form_input_short'>
-					<label>HP: </label>
-					<input 
-						type="text"
-						placeholder='5 - 200'
-						value={input.hp}
-						name="hp" 
-						onChange={(e)=>handleChange(e)}
-						maxLength={3}
-						className={errors.hp?'input_error':input.hp?'input_correct':'input_normal'}
-						disabled={loadSubmit}
-					/>
-				</div>
-
-				<div className='form_input_short'>
-					<label>Weight: </label>
-					<input 
-						type="text"
-						placeholder='1 - 1000'
-						value={input.weight}
-						name="weight" 
-						onChange={(e)=>handleChange(e)}
-						maxLength={5}
-						className={errors.weight?'input_error':input.weight?'input_correct':'input_normal'}
-						disabled={loadSubmit}
-					/><span className='span_weight'>kg</span>
-				</div>	
-
-				<div className='form_input_short'>
-					<label>Height: </label>
-					<input 
-						type="text"
-						placeholder='1 - 1000'
-						value={input.height}
-						name="height" 
-						onChange={(e)=>handleChange(e)}	
-						maxLength={4}
-						className={errors.height?'input_error':input.height?'input_correct':'input_normal'}
-						disabled={loadSubmit}
-					/><span className='span_height'>m</span>
-				</div>
-
-				<div className='form_input_type'>
-					<label>Type: </label>
-					
-					{typeSelects[0]===undefined?
-					<div className="select_type_one">
-						<button onClick={(e)=>handleShowType(e,'one')} value='one' className='type_btn_select' disabled={loadSubmit}><FontAwesomeIcon icon={faPlus} /></button>
-						<TypesSearch showType={showTypeOne} handleFilterType={handleFilterType} typeSelec='one'/>
-					</div>:
-					<div className="select_type_one">
-						<img src={typeSelects[0].icon} alt="lis"/>			
-						<div className='text_select'>
-							<span>{typeSelects[0].name.toUpperCase()}</span>	
-							<button onClick={(e)=> handleDeleteType(e)} value='one' disabled={loadSubmit}>x</button>						
+					<div className='form-container__row form-container__row--type'>
+						<label>Type</label>
+						<div className='input-text' disabled={loadSubmit}>
+							{typeSelects.map((e, index) => {
+								return (
+									<div className="type-container" key={index}>
+										<TypesSearch  
+											showType={showType[index]} 
+											handleSelectType={handleSelectType}
+											hidenANDshow={handleShowType}
+											optionSelect={e? e :{name:'+'}} 
+											type={index}
+											typeList={input.types}
+										/>										
+										{e && <button className='type-container__delete' type="button" onClick={(e)=> handleDeleteType(e)} value={index} disabled={loadSubmit}>x</button>}											
+									</div>									
+								)
+							})}
 						</div>
 					</div>
-					}
-
-					{typeSelects[1]===undefined?
-					<div className="select_type_two">
-						<button onClick={(e)=>handleShowType(e,'two')} value='two' className='type_btn_select' disabled={loadSubmit}><FontAwesomeIcon icon={faPlus} /></button>
-						<TypesSearch showType={showTypeTwo} handleFilterType={handleFilterType} typeSelec='two'/>
-					</div>:
-					<div className="select_type_two">
-						<img src={typeSelects[1].icon} alt="lis"/>	
-						<div className='text_select'>
-							<span>{typeSelects[1].name.toUpperCase()}</span>	
-							<button onClick={(e)=> handleDeleteType(e)} value='two' disabled={loadSubmit}>x</button>						
-						</div>		
-					</div>		
-					}
 				</div>
 
-				<button onClick={(e)=>handleSubmit(e)} className='btn_submit' type="submit" disabled={disableSubmit}>
-				{loadSubmit?
-				<ThreeCircles
-					  height="30"
-					  width="30"
-					  color="red"
-					  wrapperStyle={{}}
-					  wrapperClass=""
-					  visible={true}
-					  ariaLabel="three-circles-rotating"
-					  outerCircleColor=""
-					  innerCircleColor="#0088ff"
-					  middleCircleColor=""
-					/> :
-				<div>
-					<p>CREATE</p>
+				<div className='example'>
+					{width<920 && <button className='preview-btn' type="button" onClick={()=>setPreviewOpen(!previewOpen)}>Preview<FontAwesomeIcon className='icon' icon={previewOpen?faChevronUp:faChevronDown}/></button>}
+					{previewOpen &&				
+			        <div className={loadSubmit?'card--load':'card'}>
+				        <DetailCard
+					        name={input.name || 'NAME'}
+					        img={input.img}
+					        type={typeSelects.filter((item) => item !== undefined)}
+					        weight={input.weight>1000 || input.weight<1 ? 1:input.weight || 1}
+					        height={input.attack>1000 || input.attack<1 ? 1:input.height || 1}
+					        attack={input.attack>300 || input.attack<5 ? 5:input.attack || 5}
+					        defense={input.defense>300 || input.defense<5 ? 5:input.defense || 5}
+					        speed={input.speed>300 || input.speed<5 ? 5:input.speed || 5}
+					        hp={input.hp>300 || input.hp<5 ? 5:input.hp || 5}
+					        exp={input.experience>300 || input.experience<5 ? 5:input.experience || 5}
+				        />
+
+				        {loadSubmit &&		        	
+				        <div className='loader-submit'>
+							<ThreeCircles
+								height="200"
+								width="200"
+								color="red"
+								visible={true}
+								ariaLabel="three-circles-rotating"
+								innerCircleColor="#0088ff"
+							/>       		
+				        </div>}
+					</div>}
+
+					<div className="buttons">
+						<BtnCancel route={`/`}/>
+						<BtnCreate handleSubmit={handleSubmit} disableSubmit={disableSubmit} loadSubmit={loadSubmit}/>
+					</div>
 				</div>
-				}
-				</button>
 			</form>
 
 		</div>

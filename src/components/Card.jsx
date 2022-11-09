@@ -5,10 +5,7 @@ import TypeIcon from './TypeIcon';
 import pokeballClose from "../assets/static/pokeballClose.png"
 
 
-export default function Card({name, types, image, exp, origin}) {
-	
-	const uppercaseFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1);
-	
+export default function Card({name, types, image, exp, origin}) {	
 	return (
         <Link to={"/detail/" + name} className='cardHome'>
 			{!origin?
@@ -20,7 +17,7 @@ export default function Card({name, types, image, exp, origin}) {
 
 			<p className='cardHome__experience'>exp{exp}</p>
 			<img className='cardHome__img' src={image} alt={name}/>
-			<p className='cardHome__name'>{uppercaseFirstLetter(name)}</p>
+			<p className='cardHome__name'>{name}</p>
 			<div className='cardHome__types'>
 				{types.map(e=>{
 					return(

@@ -34,7 +34,19 @@ button{
 	cursor: pointer;
 	border: none;
 	background-color: transparent;
+	padding: 0;
 }
 input{
 	outline: none;
+}
+
+textarea{
+	outline: none;
+	resize: none;
+  	padding: 0;
+}
+a {
+    color: #000;
+    cursor: pointer;
+    text-decoration: none;
 }

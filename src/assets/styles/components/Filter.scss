@@ -7,168 +7,175 @@
 	justify-content: $justify;
 } 
 
-.orderANDfilters{
+.filters{
 	color:#fff;
 	background-color: #CF3030;
 	min-width: calc(100vw - 40px);
 	padding: 20px;
 	font: 500 15px 'Kdam Thmor Pro', sans-serif;
-}
 
-.orderANDfilters__order, .orderANDfilters__filter{
-	margin: 30px 0;
-	p{
-		font: 500 19px 'Kdam Thmor Pro', sans-serif;
-	}
-}
+	&__section{
+		margin: 30px 0;		
 
-.select{
-	position: relative;
-	margin: 5px 10px;
-}
-
-.select__optionMain{
-	text-align: left;
-	color:#fff;
-	margin: 5px 0;
-	font: 500 18px 'Kdam Thmor Pro', sans-serif;
-
-	.select__optionMain__arrow{
-		position: absolute;
-	    right: 15px;
-	    top:10px;
-	}
-}
-
-.select__options{ 
-	overflow: hidden;
-	height: 0;
-	transition: height 0.5s cubic-bezier(.22,.61,.36,1);
-	
-	button{
-		display: block;
-		color:#fff;
-		padding: 4px 25px;		
-		font: 500 20px 'Alatsi', sans-serif;
-	}
-}
-.select__options.open{ 
-	height: 75px;
-}
-
-.select__options--type{
-	input{
-		margin:10px;
-		max-width: 175px;
-	    font-size: 17px;
-	    padding: 5px 8px;
-	    border-radius: 5px;
-	    border:none;
-	    background-color: #fff;
+		p{
+			font: 500 19px 'Kdam Thmor Pro', sans-serif;
+		}		
 	}
 
-	button{
-		@include displayFlex(row-reverse, flex-end);
-		min-width: 150px;
-		padding: 5px 0;
-		
-		img{
-			padding-right: 5px;
-			width: 30px;
+	.select{
+		position: relative;
+		margin: 5px 10px;
+
+		&__option-main{
+			color:#fff;
+			font: 500 18px 'Kdam Thmor Pro', sans-serif;
+		    background-color: #CF3030;
+		    width: 100%;
+			text-align: left;
+			margin: 5px 0;	
+			display: flex;
+    		align-items: center;    
+		    gap: 5px;
+
+			img{
+				width: 25px;
+			}
+
+			.arrow{
+				position: absolute;
+			    right: 15px;
+			    top:10px;
+			}
+		}
+
+		&__options{ 
+			button{
+				padding: 4px 25px;		
+				font: 500 20px 'Alatsi', sans-serif;
+			}	
+
+			.disabled{
+				color: #32F9D5;	
+			}
+
+
+			&--type{
+				div{
+					justify-content: flex-start;
+					padding: 6px 25px;
+
+					button{
+						min-width: 150px;
+						padding: 5px 0;
+
+						img{
+							padding-right: 5px;
+						}    
+					}					
+				}
+			}
+
+			&.open{ 
+				height: 75px;
+			}
 		}
 	}
 }
 
-.select__options--type>div{
-	@include displayFlex(row, flex-start);
-	padding: 6px 25px;
-}
+
 
 
 @media (min-width: 1100px) {
 
-	.orderANDfilters{
-		@include displayFlex(row, center);
-		padding: 0;
-		background-color: transparent;
-	}
+.filters{
+	@include displayFlex(row, center);
+	padding: 0;
+	background-color: transparent;
 
-	.orderANDfilters__order{
-		@include displayFlex(column, flex-end);
-	}	
 
-	.orderANDfilters__order, .orderANDfilters__filter {
+	&__section{
 	    margin: 0; 
+
+		&--order{
+			@include displayFlex(column, flex-end);
+
+			&>p{
+				align-self: flex-end;
+				border-radius: 15px 0 0 0;
+			}
+		}	
+
+		&--filter{
+			&>p{
+				border-radius: 0 15px 0 0;		
+			}
+		}	
+
+		&>p{
+			background-color: #B41919;
+			width: 240px;
+			padding: 5px 10px;
+			margin:1px;
+			text-align: center;			
+		}
+
+		&>div{
+			@include displayFlex(row, flex-start);		
+
+
+		}
 	}
 
 
-
-	.orderANDfilters__order>p,.orderANDfilters__filter>p{
-		background-color: #B41919;
-		width: 240px;
-		padding: 5px 10px;
+	.select {
 		margin:1px;
-		text-align: center;
+
+		&__option-main{
+			text-align: center;
+			margin: 0;
+			min-width: 260px;
+			padding: 5px 10px;
+		}
+
+		&__options{ 
+			position: absolute;
+			right: 25px;
+			
+			button{
+				background-color: #d95d5d;
+				width: 210px;
+				border-top:1px solid silver;
+			}
+
+			button:last-child, &--type.open{
+				border-radius: 0 0 15px 15px;
+			}		
+
+			&--type{
+				background-color: #d95d5d;
+				width: 210px;
+
+				div{
+					padding: 0;
+
+					button{
+						padding: 6px 20px;
+					}					
+				}
+
+				&.open{ 
+					height: 830px;
+				}
+			}
+
+		}		
 	}
 
-	.orderANDfilters__order>p{
-		align-self: flex-end;
-		border-radius: 15px 0 0 0;
-	}	
-
-	.orderANDfilters__filter>p{
-		border-radius: 0 15px 0 0;		
-	}
-
-	.orderANDfilters__order>div,.orderANDfilters__filter>div{
-		@include displayFlex(row, flex-start);
-	}
-
-	.select{
-		max-width: 300px;
-		margin:1px;
-	}
-
-	.select__optionMain{
-		position: relative;
-		background-color: #CF3030;		
-		text-align: center;
-		padding: 5px 10px;
-		margin: 0;
-		min-width: 260px;
-	}
-	.orderANDfilters__order>div div:first-child .select__optionMain{
+	&__section--order>div div:first-child .select__option-main{
 		border-radius: 15px 0 0 15px;
 	}	
-	.orderANDfilters__filter>div div:last-child .select__optionMain{
+	&__section--filter>div div:last-child .select__option-main{
 		border-radius: 0 15px 15px 0;
 	}	
-
-	.select__options{
-		position: absolute;
-		right: 25px;
-
-		button{
-			background-color: #d95d5d;
-			width: 210px;
-			border-top:1px solid silver;
-		}
-	}
-	.select__options button:last-child,.select__options--type.open{
-		border-radius: 0 0 15px 15px;
-	}
-	.select__options--type{
-		background-color: #d95d5d;
-		width: 210px;
-
-		button{
-			padding: 6px 20px;
-		}
-	}
-	.select__options--type>div{
-		padding: 0;
-	}
-	.select__options--type.open{ 
-		height: 830px;
-	}
+}
 }

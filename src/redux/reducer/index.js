@@ -16,9 +16,9 @@ const initialState = {
         alph:'ALPHABETICALLY', 
         exp: 'EXP',
         origin: 'ORIGIN', 
-        types: 'TYPE'
+        types: {name: 'TYPE', icon: false}
     },
-
+    search:'',
     mobile:true,
 
 
@@ -110,6 +110,14 @@ export default function rootReducer (state= initialState, action){
                 notFound:pokeFind[0]!==undefined?false:true
             }
 
+        case 'SEARCH':
+            return {
+                ...state,
+                search:action.payload
+            } 
+
+
+
         case 'GET_NULL':
             return {
                 ...state,
@@ -141,6 +149,12 @@ export default function rootReducer (state= initialState, action){
                 status: action.payload
             }
 
+        case 'POST_ITEM_HALL':
+            return {
+                ...state
+            }
+
+
         case 'RANDOM_POKEMON':
             return {
                 ...state,
@@ -153,25 +167,16 @@ export default function rootReducer (state= initialState, action){
                 ...state,
                 randomPokemon:[],
             }  
-
-        // case 'FILTER_BY_TYPE':
-        //     let allFilterPoke = state.allPokemons
-        //     let typesFilt = allFilterPoke.filter(poke=> poke.types.some(e=>e.name === action.payload))
-
-        //     return {
-        //         ...state,
-        //         filterANDorder:action.payload,
-        //         pokemons: typesFilt
-        //     }
-      
+            
 
         case 'FILTER_BY_TYPE':
+            let type = state.typePokemon.find(e=>e.name===action.payload)
             return {
                 ...state,
                 load:false,
                 notFound:false,
                 type:[action.payload],
-                filters: {...state.filters, origin:'ORIGIN', types:action.payload.toUpperCase()},                
+                filters: {...state.filters, origin:'ORIGIN', types:{name: action.payload.toUpperCase(), icon: type.icon}},                
                 pokemons: state.allPokemons.filter(poke=> poke.types.some(e=>e.name === action.payload))
             }
             
@@ -198,7 +203,7 @@ export default function rootReducer (state= initialState, action){
         case 'FILTER_CREATED': 
             return {
                 ...state,
-                filters: {...state.filters, origin:action.payload, types:'TYPE'},                    
+                filters: {...state.filters, origin:action.payload, types: {name: 'TYPE', icon: false}},                    
                 load:false,
                 pokemons:action.payload==='EXISTING'?state.allPokemons.filter((e)=>e.original) :state.allPokemons.filter((e)=>!e.original) 
             }    
@@ -210,7 +215,7 @@ export default function rootReducer (state= initialState, action){
                 load:false,
                 notFound:false,
                 pokemons: state.allPokemons,                
-                filters: {alph:'ALPHABETICALLY', exp: 'EXP',origin: 'ORIGIN', types: 'TYPE'}                
+                filters: {alph:'ALPHABETICALLY', exp: 'EXP',origin: 'ORIGIN', types: {name: 'TYPE', icon: false}}                
             }
             
 
