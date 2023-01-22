@@ -1,56 +1,40 @@
 .typeIcon{
-	display: inline;
 	position: relative;
-}
-	.typeIcon__icon{
-		max-width: 30px;
+	display: inline;
+
+	img{
+		width: clamp(30px, 5vw, 45px);
 		margin:0 5px;
 	}
-
-	.typeIcon__tooltip{
+	span{
 	    position: absolute;
-	    left: -22px;
-	    bottom: 42px;	    
-	    z-index: 500;	    
+	    left: -20px;
+	    right: -20px;
+	    bottom: clamp(42px, 6.5vw, 56px);    
 	    min-width: 80px;
 	    padding: 8px 0;
-	    border-radius: 5px;
 	    background: #000;
-	    color: #fff;
-	    font-size: 12px;
-	    text-align: center;
+	    color: #FFF;
+	    font-size: clamp(1.2rem, .6rem + 1vw, 1.6rem);
+	    border-radius: 5px;
 	    visibility: hidden;
 	    opacity: 0;
-	    transition: opacity 0.2s ease;
+	    transition: opacity .2s ease;
+
+	    &::before{
+			content: "";
+			position: absolute;
+			bottom: -7px;
+			left: calc(50% - 7px);				
+			border-top: 7px solid #000;
+			border-left: 7px solid transparent;
+			border-right: 7px solid transparent;
+		}
 	}
-
-	.typeIcon__tooltip::before{
-		content: "";
-		position: absolute;
-		bottom: -7px;
-		left: calc(50% - 7px);				
-		border-top: 7px solid #000;
-		border-left: 7px solid transparent;
-		border-right: 7px solid transparent;
-	}
-
-
-.typeIcon:hover{
-	.typeIcon__tooltip {
-		visibility: visible;
-		opacity: 1;
-	}	
-} 
-
-@media (min-width: 620px) {
-	.typeIcon__icon{
-		max-width: 45px;
-	}
-
-	.typeIcon__tooltip{
-	    left: -13px;
-	    bottom: 58px;	 
-	}
-
+	&:hover{
+		span {
+			visibility: visible;
+			opacity: 1;
+		}	
+	} 
 }
-
