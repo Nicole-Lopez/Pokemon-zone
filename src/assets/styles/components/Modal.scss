@@ -1,0 +1,23 @@
+@use '../mixins';
+
+.modal{
+	@include mixins.displayFlex($alignI:center, $justify:center);
+	position: fixed;
+	top:0;
+	left:0;  
+	z-index: 2;		
+  	height: 100%;
+  	width: 100%;
+	background-color: rgba(0, 0, 0, 0.5); 
+
+	&__close-btn{
+	    position: absolute;
+	    top: 0;
+	    right: 0;
+	    width: clamp(60px, 10vw, 120px);
+	    padding: 4px;
+	    background-color: #FF000E;
+	    color: #FFF;
+	    font: bold clamp(23px, 5vw, 35px) 'Arial';		
+	}
+}		
