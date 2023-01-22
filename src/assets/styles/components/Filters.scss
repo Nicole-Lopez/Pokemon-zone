@@ -1,0 +1,139 @@
+@use '../mixins';
+@use '../variables';
+
+.filters{
+	min-width: calc(100vw - 40px);
+	padding: 20px;
+	background-color: variables.$red-pokemon;
+	color:#FFF;
+
+	&__section{
+		margin: 30px 0;		
+
+		p{
+			font: 500 1.9rem 'Kdam Thmor Pro', sans-serif;
+		}		
+	}
+
+
+	@include mixins.selectDefaultStyle();
+	@include mixins.selectTypeDefaultStyle();
+	.select{
+		position: relative;
+		margin: 5px 10px;
+
+		&__option-main{
+			display: flex;
+		    width: 100%;
+			margin: 5px 0;	
+		    background-color: variables.$red-pokemon;
+			color:#FFF;
+			font: 500 1.8rem 'Kdam Thmor Pro', sans-serif;
+
+			img{
+				width: 25px;
+			}
+		}
+
+		&__options{ 
+			button{
+				padding: 4px 25px;		
+				font: 500 2rem 'Alatsi', sans-serif;
+
+				&:disabled, &[disabled]{
+					color: #32F9D5;	
+				}
+			}	
+
+			&--type div{
+				padding: 6px 25px;
+
+				button{
+					min-width: 150px;
+				}					
+			}
+
+			&--open{ 
+				height: 75px;
+			}
+		}
+	}
+}
+
+
+@media (min-width: 1100px) {
+.filters{
+	@include mixins.displayFlex($justify:center);
+	padding: 0;
+	background-color: transparent;
+
+	&__section{
+	    margin: 0; 
+
+		&--order{
+			@include mixins.displayFlex($direction:column);
+
+			&>p{
+				align-self: flex-end;
+				border-radius: 15px 0 0 0;
+			}
+		}	
+
+		&--filter>p{
+			border-radius: 0 15px 0 0;		
+		}	
+
+		&>p{
+			width: 240px;
+			padding: 5px 10px;
+			margin:1px;
+			background-color: #B41919;
+			text-align: center;			
+		}
+
+		&>div{
+			display: flex;		
+		}
+	}
+
+	.select {
+		margin:1px;
+
+		&__option-main{
+			min-width: 260px;
+			margin: 0;
+			padding: 5px 10px;
+		}
+
+		&__options{ 
+			position: absolute;
+		    right: 0;
+		    left: 0;
+ 			width: 210px;	
+		    margin: auto;
+			background-color: #d95d5d;
+			border-radius: 0 0 15px 15px;
+
+			button{
+				width: 100%;
+				border-top:variables.$silver_line;
+			}	
+
+			&--type div{
+				padding: 0;
+
+				button{
+					padding: 6px 20px;
+				}					
+			}
+		}		
+	}
+
+	&__section--order>div div:first-child .select__option-main{
+		border-radius: 15px 0 0 15px;
+	}	
+	&__section--filter>div div:last-child .select__option-main{
+		border-radius: 0 15px 15px 0;
+	}	
+}
+}
