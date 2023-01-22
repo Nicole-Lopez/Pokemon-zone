@@ -1,17 +1,16 @@
-import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown,faChevronUp } from '@fortawesome/free-solid-svg-icons'
-import '../assets/styles/components/Select.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 
-export default function Select({type, hidenANDshow, show, optionSelect, options, handleDispatchOrder,dis}) {
+export default function Select({type, hidenANDshow, show, optionSelect, options, handleDispatchOrder}) {
 	return (
         <div className='select'>
-            <button className='select__option-main' onClick={(e)=>hidenANDshow(e)} value={type} type='button'>
-            	{optionSelect} <FontAwesomeIcon className='arrow' icon={show?faChevronUp:faChevronDown} />
+            <button className='select__option-main' onClick={hidenANDshow} value={type} type='button'>
+                {optionSelect} <FontAwesomeIcon icon={show?faChevronUp:faChevronDown}/>
             </button>
-            <div className={`select__options ${show && "open"}`}>
+            
+            <div className={`select__options ${show && "select__options--open"}`}>
             	{options.map(option=>
-            		<button className={`${optionSelect === option?'disabled':null}`} key={option} onClick={(e)=>handleDispatchOrder(e, type)} value={option}>{option}</button>
+            		<button key={option} value={option} onClick={handleDispatchOrder} name={type} type='button' disabled={optionSelect === option}>{option}</button>
             	)}           	
             </div>
         </div>
