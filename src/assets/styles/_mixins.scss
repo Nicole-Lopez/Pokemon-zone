@@ -1,0 +1,144 @@
+@mixin displayFlex($direction: row, $wrap: nowrap, $justify: normal, $alignI: normal) {
+	display: flex;
+    flex-flow: $wrap $direction;
+	justify-content: $justify;
+    align-items: $alignI;
+} 
+
+@mixin setBgColorAndHover($baseColor){
+    background-color: $baseColor;
+
+    &:hover, &:active{
+    	background-color: darken($baseColor, 10);
+    }
+}
+
+// *********** STYLES TYPE MENU *********
+@mixin selectDefaultStyle() {
+	.select {
+		position: relative;
+
+		&__option-main > * , &__options button > * {
+			pointer-events: none;
+		}
+
+		&__option-main{
+			@include displayFlex($alignI:center);
+			gap: 5px;	
+
+			svg{
+				position: absolute;
+			    right: 15px;
+			    top:10px;
+			}
+		}
+
+		&__options{ 
+			overflow: hidden;
+			height: 0;
+			transition: height .5s cubic-bezier(.22,.61,.36,1);
+
+			button{
+				display:block;
+				color: #fff;
+		
+				&:hover{
+					text-decoration: underline;
+				}			
+
+				&:disabled, &[disabled]{
+					cursor: default;
+				
+					&:hover {
+						text-decoration: none;
+					}			
+				}
+			}		
+		}	
+	}
+}
+
+@mixin selectTypeDefaultStyle() {
+	@include selectDefaultStyle();
+
+	.select__options--type{
+		input{
+			max-width: 175px;
+			margin:10px;
+		    padding: 5px 8px;
+		    border-radius: 5px;
+		    border:none;
+		    background-color: #fff;
+		    font-size: 1.7rem;
+		}	
+		div {
+			@include displayFlex($wrap:wrap);
+
+			button{
+				@include displayFlex($direction:row-reverse, $wrap:wrap, $justify:flex-end, $alignI:center);
+				padding: 5px 0;
+				gap:5px;				
+
+			    img{
+			    	width: 30px;
+			    }
+			}
+		}
+	}
+}
+
+@mixin typeSearchStyle1() {
+	position: relative;
+	@include selectTypeDefaultStyle();
+		
+	.select{
+		width: 100%;
+
+		&__option-main{
+			.svg-inline--fa{
+				position: absolute;
+			    top: -9999px;
+			    left: -9999px;
+			}
+		
+		    img{
+		    	width:100%;
+		    }
+		}
+
+		&__options--type{
+			position: absolute;
+			z-index: 2;
+			width: 285px;
+			background-color: #d95d5d;
+			border-radius: 15px;
+
+			div{
+			    justify-content: center;
+
+				button{
+					width: 130px;
+					font-size: 1.5rem;
+
+					&:disabled, &[disabled]{
+						background-color: #a53b3b;
+						border-radius: 15px;  											
+					}
+				}
+			}
+		}
+	}
+
+
+	&__delete{
+		position: absolute;
+	    top: -10px;
+	    right: -5px;
+	    width: 20px;
+	    background-color: #e13939;
+	    color: #FFF;
+	    font-size: 20px;
+	    border-radius: 50%;
+	}	
+} 
+// **************************************
