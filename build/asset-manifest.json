@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/CRUD-pokemon-client/static/css/main.5bf2db68.chunk.css",
+    "main.js": "/CRUD-pokemon-client/static/js/main.6d964bca.chunk.js",
+    "main.js.map": "/CRUD-pokemon-client/static/js/main.6d964bca.chunk.js.map",
+    "runtime-main.js": "/CRUD-pokemon-client/static/js/runtime-main.46c68a49.js",
+    "runtime-main.js.map": "/CRUD-pokemon-client/static/js/runtime-main.46c68a49.js.map",
+    "static/js/2.170592e2.chunk.js": "/CRUD-pokemon-client/static/js/2.170592e2.chunk.js",
+    "static/js/2.170592e2.chunk.js.map": "/CRUD-pokemon-client/static/js/2.170592e2.chunk.js.map",
+    "static/js/3.bc20857c.chunk.js": "/CRUD-pokemon-client/static/js/3.bc20857c.chunk.js",
+    "static/js/3.bc20857c.chunk.js.map": "/CRUD-pokemon-client/static/js/3.bc20857c.chunk.js.map",
+    "index.html": "/CRUD-pokemon-client/index.html",
+    "static/css/main.5bf2db68.chunk.css.map": "/CRUD-pokemon-client/static/css/main.5bf2db68.chunk.css.map",
+    "static/js/2.170592e2.chunk.js.LICENSE.txt": "/CRUD-pokemon-client/static/js/2.170592e2.chunk.js.LICENSE.txt",
+    "static/media/204.3bc4096a.png": "/CRUD-pokemon-client/static/media/204.3bc4096a.png",
+    "static/media/404.2d69b926.png": "/CRUD-pokemon-client/static/media/404.2d69b926.png",
+    "static/media/explosionEffect.4847ae1c.gif": "/CRUD-pokemon-client/static/media/explosionEffect.4847ae1c.gif",
+    "static/media/logo.1a48165f.png": "/CRUD-pokemon-client/static/media/logo.1a48165f.png",
+    "static/media/pokeballClose.2de3393b.png": "/CRUD-pokemon-client/static/media/pokeballClose.2de3393b.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.46c68a49.js",
+    "static/js/2.170592e2.chunk.js",
+    "static/css/main.5bf2db68.chunk.css",
+    "static/js/main.6d964bca.chunk.js"
+  ]
+}
