@@ -1,113 +1,126 @@
-import React,{useState, useEffect}  from 'react'
-import {useDispatch, useSelector} from 'react-redux'
-import {Link} from 'react-router-dom';
-import {getPokemon, clear,pagination,handleMobile,setPage} from '../redux/actions/index'
-import '../assets/styles/containers/HomePage.scss'
-import Card from '../components/Card.jsx'
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useMediaQuery } from 'usehooks-ts';
+import { Link } from 'react-router-dom';
 import InfiniteScroll from "react-infinite-scroll-component";
-import CardHome from '../components/Skeleton loader/CardHome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilter, faX } from '@fortawesome/free-solid-svg-icons';
+import { getPokemon, paginationHome, setPage, cleanDetail } from '../redux/actions/index';
+import '../assets/styles/containers/HomePage.scss';
 import NotFound from '../components/NotFound';
 import Filters from '../components/Filters';
-import RemoveFiltANDRandom from '../components/RemoveFiltANDRandom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFilter, faPlus,faX } from '@fortawesome/free-solid-svg-icons'
 import SearchBar from '../components/SearchBar';
-import logo from '../assets/static/logo.png';
-import { useWindowSize } from 'usehooks-ts'
+import RemoveFiltANDRandom from '../components/RemoveFiltANDRandom';
+import Card from '../components/Card';
+import CardSkeleton from '../components/Skeleton loader/CardSkeleton';
+import logoPokemon from '../assets/static/logo.png';
+import PokeballIcon from '../assets/static/PokeballIcon';
+import SkeletonLoader from '../components/Skeleton loader/SkeletonLoader';
+
 
 export default function HomePage () {
-  const dispatch = useDispatch()
-  const allPokemon = useSelector((state) => state.pokesPerPage)
-  const todosPokemon = useSelector((state) => state.allPokemons)
-  const lyna = useSelector((state) => state.pokemons)
-  const filterANDorder = useSelector((state) => state.filterANDorder)
-  const loader = useSelector((state) => state.load)
-  const hasMore = useSelector((state) => state.hasMore);
-  const notFound = useSelector((state) => state.notFound);
-  const mobile = useSelector((state) => state.mobile);
+    const mobile = useMediaQuery('(max-width: 1100px)')
+    const dispatch = useDispatch()
+    const pokesPerPage = useSelector((state) => state.pokesPerPage)
+    const allPokemons = useSelector((state) => state.allPokemons)
+    const pokemons = useSelector((state) => state.pokemons)
+    const loader = useSelector((state) => state.load)
+    const hasMore = useSelector((state) => state.hasMorePokemon);
+    const detail = useSelector((state) => state.detail);
 
-  const [filterOpen, setFilterOpen] = useState(false)
+    const [filterOpen, setFilterOpen] = useState(false)
 
-  const { width, height } = useWindowSize()
+    useEffect(() => {
+        if (!allPokemons.length) dispatch(getPokemon())
+    }, [dispatch, allPokemons])    
 
+    useEffect(() => { 
+        window.scrollTo(0,0);
+        dispatch(setPage());
+        dispatch(paginationHome())
+    }, [dispatch, pokemons])
 
-
-  useEffect(() => {
-    if (width < 1100) {
-      dispatch(handleMobile(true))
-    } else {
-      dispatch(handleMobile(false))
-    }
-  }, [width])
-
-  useEffect(() => { 
-    window.scrollTo(0,0);
-    dispatch(setPage());
-    dispatch(pagination())
-  },[dispatch,lyna])
+    useEffect(() => {
+        if (detail.length) dispatch(cleanDetail()) 
+    }, [dispatch, detail])
 
 
-  useEffect(() => {
-    if (!todosPokemon[0]) {
-      dispatch(getPokemon())    
-    }
-  }, [dispatch])
+    return (
+        <div className='homepage'>
+            <img className='homepage__logo' src={logoPokemon} alt="Pokémon"/>
 
-  useEffect(() => {
-    if (loader===false) {
-      dispatch(pagination()) 
-    }
-  }, [dispatch, loader])
+            {loader? 
+                <SkeletonLoader className='homepage__create-button'/>                
+                :
+                <Link to='/pokemons/create' className='homepage__create-button'>
+                    <span>{mobile ? '+' : 'CREATE YOUR POKÉMON!'}</span>
+                    <PokeballIcon/>
+                </Link>
+            }
 
+            {loader ?                             
+                <SkeletonLoader 
+                    width='220px' 
+                    height='38px' 
+                    wrapperStyle={{borderRadius: '3rem'}}
+                    className='search-bar'
+                /> 
+                : <SearchBar/>
+            }
 
-  return (
-    <div className='home'>
-      <img className='home__logo' src={logo} alt="pokémon"/>
+            <div className="homepage__filters">
+                {mobile?
+                    <>
+                        <button onClick={()=>setFilterOpen(true)} disabled={loader}><FontAwesomeIcon icon={faFilter}/></button>
+                        <div className={`filters-mobile ${filterOpen && "filters-mobile--open"}`}>
+                            {filterOpen && <FontAwesomeIcon icon={faX} onClick={()=>setFilterOpen(false)}/>}
+                            <Filters/>
+                        </div>           
+                    </>
+                    : loader? 
+                        <>
+                            <SkeletonLoader 
+                                width='520px' 
+                                height='40px' 
+                                wrapperStyle={{borderRadius: '15px 15px 0 0', margin:'1px auto'}}
+                            />                          
+                            <SkeletonLoader 
+                                width='1048px' 
+                                height='40px' 
+                                wrapperStyle={{borderRadius: '15px', margin:'1px auto'}}
+                            />    
+                        </>                    
+                        :
+                        <Filters/>
+                }
+            </div>
 
-      <Link to='/pokemons/create' className='home__createBTN'>
-        <button>
-          {!mobile && <span>CREATE YOUR POKEMON!</span>}
-          <svg className="home__createBTN__icon" fill="none" height="30" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" width="30" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none" stroke="none"/><circle cx="9" cy="9" r="9" transform="translate(3 3)"/><circle cx="12" cy="12" r="3"/><path d="M3 12h6m6 0h6"/></svg>
-          {mobile && <FontAwesomeIcon icon={faPlus} className="home__createBTN__icon"/>}
-        </button>  
-      </Link>
+            <RemoveFiltANDRandom/>
 
-      <SearchBar/>
-
-      <div className="home__filters">
-        {mobile?
-          <>
-            <FontAwesomeIcon icon={faFilter} onClick={()=>setFilterOpen(true)} />
-            <div className={`home__filters__menuResponsive ${filterOpen && "open"}`}>
-              {filterOpen && <FontAwesomeIcon icon={faX} onClick={()=>setFilterOpen(false)}/>}
-              <Filters/>
-            </div>           
-          </>
-        :<Filters/>}
-      </div>
-
-      <RemoveFiltANDRandom/>
-
-      <div className="home__cards">
-      <InfiniteScroll className='home__cards__container'
-         dataLength={allPokemon.length}
-         hasMore={hasMore}
-         next={()=>dispatch(pagination())}
-         loader={<CardHome/>}
-         // endMessage={allPokemon.length && allPokemon.length>=4?
-         //    <p className='endMessage'>Wow! Looks like you've come to an end!</p>
-         //    :null
-         // }
-         >
-            {loader?<CardHome/>:
-              notFound?<NotFound/>:allPokemon.map(poke=>{
-              return (
-                <Card key={poke.id} name={poke.name} types={poke.types} image={poke.img} exp={poke.experience} origin={poke.original}/>
-              )
-            })}
-        </InfiniteScroll>
-      </div>
-
-    </div>
-  )
+            <div className="homepage__cards-container">
+                {loader?
+                    <div className='cards-container'>
+                        <CardSkeleton/><CardSkeleton/><CardSkeleton/><CardSkeleton/>
+                    </div>
+                    : pokemons.length? 
+                        <InfiniteScroll
+                            dataLength={pokesPerPage.length}
+                            hasMore={hasMore}
+                            next={() => dispatch(paginationHome())}
+                            loader={<><CardSkeleton/><CardSkeleton/></>}
+                            endMessage={!hasMore && pokemons.length && <p className='endMessage'>Wow! Looks like you've come to an end!</p>}
+                            className='cards-container'
+                        >
+                            {pokesPerPage.map(pokemon=>{
+                                return (
+                                    <Card key={pokemon.id} name={pokemon.name} types={pokemon.types} image={pokemon.img} exp={pokemon.experience} original={pokemon.original}/>
+                                )
+                            })}
+                        </InfiniteScroll>
+                    :
+                    <NotFound/>
+                }
+            </div>
+        </div>
+    )
 }     

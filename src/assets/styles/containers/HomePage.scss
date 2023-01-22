@@ -1,130 +1,169 @@
-@import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&family=Rubik&display=swap');
+@use '../mixins';
+@use '../variables';
 
-body{
-	background: linear-gradient(288deg, rgba(70,183,186,1) 0%, rgba(123,214,171,1) 100%);
-	min-height: 100vh;
-}
-
-.home{
-	padding: 5px;
+.homepage{
 	display: grid;
 	grid-template-columns:2fr 1fr;
 	align-items: center;
-}
+	padding: 5px;
 
-.home__logo{
-	max-width: 150px;
-	justify-self: end;
-	padding-right: 25px;
-}
-
-.home__createBTN{
-	button{
-		border-radius: 22px;
-		padding: 9px 6px;
-		background-color: #002147;
-	}
-	.home__createBTN__icon{
-		vertical-align: middle;
-		color:white;
-	}
-}
-
-.home__filters{
-	.fa-x{
-		font-size: 20px;
-		color: #fff;
-		position: absolute;
-		top: 20px;
-		right: 5%;	
+	&__logo {
+		justify-self: end;
+		max-width: 150px;
+		padding-right: 25px;
 	}
 
-	.fa-filter{
-		font-size: 30px;
-		padding-left:20px;
-	}	
-
-	.home__filters__menuResponsive {
-		position: absolute;
-	    top: 0;
-	    left: 0;
-	    z-index: 2;
+	&__create-button {
+		@include mixins.displayFlex($direction:row-reverse, $alignI:center, $justify:center);	
 		overflow: hidden;
-		width: 0;
-		transition: width 0.5s cubic-bezier(.22,.61,.36,1);
+		width: 60px;
+		height: 50px;
+		background-color: #002147;
+		border-radius: 22px;
+
+		span, svg{
+			color:#FFF;
+		}
+		span{
+			font:900 2.5rem 'Rubik', sans-serif;
+		}
 	}
 
-	.home__filters__menuResponsive.open {
-	    width: 100%;
+	.search-bar{
+		justify-self: end;
 	}
 
-}
+	.rem-filter-and-random{
+		grid-column: 1/3;
+		justify-self: center;
+	}
 
-.home__cards{
-	grid-column: 1/3;
-	max-width: 1500px;
-	justify-self: center;
+	&__filters {
+		.fa-filter{
+			font-size: 3rem;
+			padding-left:20px;
+		}	
 
-	.home__cards__container{
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		justify-content: center;
+		.filters-mobile {
+			position: absolute;
+		    top: 0;
+		    left: 0;
+		    z-index: 2;
+			overflow: hidden;
+			width: 0;
+			transition: width .5s cubic-bezier(.22,.61,.36,1);
+			
+			.fa-x{
+				position: absolute;
+				top: 20px;
+				right: 5%;					
+				color: #FFF;
+				font-size: 2rem;
+				cursor: pointer;
+			}
 
-		.endMessage{
-			text-align: center;
-			width: 100vw;
-			font: bold 20px serif;
-			padding: 20px;
+			&--open {
+			    width: 100%;
+			}
+		}
+	}
+
+	&__cards-container {
+		grid-column: 1/3;
+		justify-self: center;
+		max-width: 1500px;
+
+		.cards-container{
+			@include mixins.displayFlex($justify:center, $wrap:wrap);
+
+			.endMessage{
+				width: 75vw;
+				margin: 20px;
+				padding: 10px;
+				background-color: rgba(255, 255, 255, 0.81961);
+				text-align: center;
+				color: variables.$red-pokemon;
+				font: bold clamp(1.6rem, 1rem + 1vw, 2.2rem) 'Rubik', sans-serif;
+			}
 		}
 	}
 }
+
 
 
 @media (min-width: 1100px) {
-	.home{
+	.homepage {
 		grid-template-columns:1fr 1fr 1fr;
-	}
-
-	.home__createBTN{
-		order: 1;
-		width: 180px;
-		justify-self: center;
 		
-		button{
+		.rem-filter-and-random{
+			order: 5;
+			grid-column: 1/4;
+		}	
+
+		&__logo {
+			order: 2;
+			max-width: 230px;
+			justify-self: center;
+			padding: 0;
+			margin: 10px 0 20px 0;
+		}
+
+		&__create-button {
+			flex-direction: row;
+			order: 1;
+			justify-self: center;
+			width: 200px;
+			height: 80px;
+	    	letter-spacing: .2rem;
 			border-radius: 5px;
-    		padding: 15px 10px;
-    		letter-spacing: 2px;
+			
+			span, svg{
+				transition: transform .6s cubic-bezier(.25, .1, .25, 1),
+							font-size .5s cubic-bezier(.25, .1, .25, 1);
+			}	
+
+			span{
+				transform: translateX(25px);
+				font:600 1.8rem 'Rubik', sans-serif;
+			}
+
+			svg{
+				transform: translateX(50px);
+			    height: 100%;
+			    width: 60px;			    
+			    background-color: #2165b3;
+			    padding: 5px;
+			    border-radius: 80% 0 0 80%;	
+			}
+
+			&:hover{
+				span{
+					font-size: 1.6rem;
+					transform: translateX(10px);
+				}
+
+				svg{
+					transform: translateX(0);
+				}
+			}
 		}
 
-		button>span{
-			color:white;
-			font:600 18px 'Rubik', sans-serif;
-			vertical-align: middle;
-			padding-right: 5px;
+		.search-bar{
+			order: 3;
+			justify-self: center;
 		}
-	}	
+		
+		&__filters {
+			grid-column: 1/4;
+			order: 4;
+			position: sticky;
+			top:5px;
+			z-index: 2;
+		}	
 
-	.home__logo{
-		order: 2;
-		max-width: 230px;
-		justify-self: center;
-		padding: 0;
-		margin: 10px 0 20px 0;
-	}
-
-	.home__filters{
-		grid-column: 1/4;
-		order: 4;
-		position: sticky;
-		top:5px;
-		z-index: 2;
-	}	
-
-	.home__cards{
-		order: 6;
-		grid-column: 1/4;
+		&__cards-container {
+			order: 6;
+			grid-column: 1/4;
+		}
 	}
 }
-
-
