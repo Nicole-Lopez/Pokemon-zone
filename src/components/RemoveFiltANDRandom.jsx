@@ -1,42 +1,31 @@
-import React, {useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilterCircleXmark,faX } from '@fortawesome/free-solid-svg-icons';
-import {
-    removeFilters,
-    pagination,
-    randomPokemon,
-    cleanRandom,
-} from "../redux/actions/index";
-import Card from './Card.jsx';
-import '../assets/styles/components/RandomPokemon.scss';
+import { faFilterCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { removeFilters, randomPokemon, cleanRandom } from "../redux/actions/index";
+import '../assets/styles/components/RemoveFiltANDRandom.scss';
+import Card from './Card';
+import Modal from './Modal';
 import pokeballClose from "../assets/static/pokeballClose.png";
 import explosionEffect from "../assets/static/explosionEffect.gif";
+import PokeballIcon from '../assets/static/PokeballIcon';
 
 export default function RemoveFiltANDRandom() {
  	const dispatch = useDispatch()
 	const random = useSelector((state) => state.randomPokemon)
+    const loader = useSelector((state) => state.load) 
     const [openRandom,setOpenRandom] = useState(false)    
 	const [ball,setBall] = useState(true)
 	const [explosion, setExplosion] = useState(false)
 	const [result, setResult] = useState(false)
-
-    const handleRemove = () => {
-        dispatch(removeFilters())
-        dispatch(pagination())
-    }
 
     const handleRandom = () => {
         dispatch(randomPokemon())
         setBall(false)
         setExplosion(true)
         
-        setTimeout(() => {
-        	setExplosion(false)
-        }, 780)
-        setTimeout(() => {
-        	setResult(true)
-        }, 500)        
+        setTimeout(() => setExplosion(false), 780)
+        setTimeout(() => setResult(true), 500)        
     }
 
     const closeRandom = () => {
@@ -48,19 +37,18 @@ export default function RemoveFiltANDRandom() {
     }
 
 	return (
-		<div className='removeFilterANDrandom'>
-			<button className='removeFilterANDrandom__removeBTN' onClick={()=>handleRemove()}><FontAwesomeIcon icon={faFilterCircleXmark}/> Remove filters</button>
+		<div className='rem-filter-and-random'>
+			<button onClick={()=>dispatch(removeFilters())} disabled={loader}><FontAwesomeIcon icon={faFilterCircleXmark}/>Remove filters</button>
 
-			<button className='removeFilterANDrandom__randomBTN' onClick={()=>setOpenRandom(true)}>Random pokemon <svg className="icon icon-tabler icon-tabler-pokeball" fill="none" height="24" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none" stroke="none"/><circle cx="9" cy="9" r="9" transform="translate(3 3)"/><circle cx="12" cy="12" r="3"/><path d="M3 12h6m6 0h6"/></svg></button>        	
-        	{openRandom &&
-			<div className='removeFilterANDrandom__random'>
-				<FontAwesomeIcon className='removeFilterANDrandom__random__close' onClick={()=>closeRandom()} icon={faX} />
-				{ball && <img onClick={()=>handleRandom()} className='removeFilterANDrandom__random__ball' src={pokeballClose} alt="pok"/>}
+			<button onClick={()=>setOpenRandom(true)} disabled={loader}>Random pokemon<PokeballIcon/></button>        	
+    			
+            <Modal visible={openRandom} closeModal={closeRandom}>
+                {ball && <img onClick={()=>handleRandom()} className='random-ball' src={pokeballClose} alt="click!"/>}
 
-				{explosion && <img className='removeFilterANDrandom__random__effect' src={explosionEffect} alt="lalala"/>}
+                {explosion && <img className='random-effect' src={explosionEffect} alt="booom!"/>}
 
-				{result && <Card key={random.id} name={random.name} types={random.types} image={random.img} exp={random.experience} origin={random.original}/>}
-			</div>}
+                {result && <Card key={random.id} name={random.name} types={random.types} image={random.img} exp={random.experience} original={random.original}/>}
+            </Modal>    
         </div>	
 	)
 }
