@@ -1,0 +1,172 @@
+@use '../mixins';
+@use '../variables';
+
+.item-hall{
+    width: 100%;
+
+    &-card{
+        @include mixins.displayFlex($alignI:center);
+        height: clamp(100px, 26vw, 400px);
+        margin: clamp(18px, 6vw, 85px) auto;
+
+        &__image{
+            height: 100%;
+            width: 50%;
+            background-color: variables.$light-green;
+            border: variables.$brown_wood clamp(10px, 3vw, 50px) solid;
+
+            img{
+                object-fit: contain;
+                height: 100%;
+                width: 100%;
+            }
+        }
+        &__text{
+            @include mixins.displayFlex($direction:column, $justify:space-evenly, $alignI:flex-start);
+            height: 75%;
+            width: 50%;
+            background-color: variables.$brown_wood;
+            padding: 0 4%;
+            color:#FFF;
+            font: 400 clamp(1.5rem, .7rem + 1.4vw, 3rem) 'Arimo', sans-serif;
+            
+            button{
+                position: relative;
+                overflow: hidden;
+                width: clamp(35px, 10vw, 110px);
+                padding: 2% 0;
+                color: #FFF;
+                font: 400 clamp(.8rem, .5rem + 1.2vw, 2.2rem) 'Merriweather Sans', sans-serif;
+                border: 1px solid variables.$yellow-pokemon;
+                transition: text-indent .2s linear 0s;
+
+                &:after{
+                    @include mixins.displayFlex($justify:flex-start, $alignI:center);
+                    content: "+";
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    height: 100%;
+                    width: 25%;
+                    opacity: 0;
+                    transition: opacity .2s linear 0s;
+                }
+
+                &:hover {
+                    text-indent: -15%;
+                    
+                    &:after{
+                        text-indent: 0px;
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+
+    &-detail{
+        flex-direction: column;
+
+        &__content{
+            background-color: variables.$brown_wood;
+            border: variables.$brown_wood 2.3vw solid;
+            border-bottom-width: 10px;
+
+            img{
+                object-fit: contain;
+                max-height: 62vh;
+                max-width: 55vw;
+                min-width: clamp(230px, 40vw, 450px);
+            }
+            
+            p{
+                padding: 1.4vw 0;
+                color:#FFF;
+                font: 400 clamp(1.5rem, 1rem + 1vw, 2.2rem) 'Arimo', sans-serif;               
+            }
+        }    
+
+        &__delete-btn{
+            @include mixins.displayFlex($alignI:center, $justify:center);
+            gap: 5px;
+            width: 125px;
+            height: 52px;
+            margin-top: 15px;            
+            border-radius: 24px;
+            background-color: #F0F8FF;
+            color:variables.$red-font;
+            font: 400 2.2rem 'Arimo', sans-serif;
+            transition: background 250ms;
+
+            .trash-icon-animation{
+                display: flex;
+
+                &>span{
+                    position: relative;
+                    width: 15px;
+                    height: 18px;
+                    background:#ff6873;
+                    border-radius: 0 0 3px 3px;
+
+                    span, span:after{
+                        background: #ff6873;
+                        position: absolute;
+                        border-radius: 10px 10px 0 0;
+                        transition: transform 250ms;
+                        transform-origin: 19% 100%;
+                    }
+
+                    span{
+                        height: 5px;
+                        top: -6px;
+                        left: -3px;
+                        right: -3px;
+
+                        &:after{
+                            content: '';
+                            width: 9px;
+                            height: 3px;
+                            top: -3px;
+                            left: 0px;
+                            right: 0;
+                            margin: auto;
+                        }
+                    }
+
+                    i, i:after,i:before{
+                        background:#FFF;
+                        width: 2px;
+                        height: 11px;
+                        border-radius: 2px;
+                    }
+
+                    i{
+                        position:relative;
+                        display:block;
+                        margin:4px auto;
+
+
+                        &:after,&:before{
+                            content: '';
+                            position: absolute;
+                        }
+                        &:after{
+                            left: -4px;
+                        }            
+                        &:before{
+                            right: -4px;
+                        }
+                    }        
+                }        
+            }
+
+            &:hover{
+                background-color: lighten(variables.$red-font, 48%);
+
+                .trash-icon-animation span>span{       
+                    transform: translateY(-3px);        
+                }
+            }    
+        }
+    }
+}
