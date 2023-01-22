@@ -1,198 +1,165 @@
-@import url('https://fonts.googleapis.com/css2?family=Goldman&family=Rubik&family=Saira&display=swap');
+@use '../mixins';
+@use '../variables';
 
-$silver_line:solid silver 1px;
-$saira_font:'Saira', sans-serif;
-$goldman_font: 'Goldman', cursive;
-
-@mixin imageSize($size, $top, $widthCard) {
-	position: absolute;
-	top: $top;
-	left: calc(($widthCard - $size)/2);
-	max-height: $size;
-	max-width: $size;
-	min-width: $size;
-	min-height: $size;
-} 
+$pokefan_size: clamp(65px, 11vw, 100px);
 
 .detail-card{
-	max-width: 290px;
+	@include mixins.displayFlex($direction: column, $alignI:center);
+	position: relative;
+	width: clamp(280px, 55vw, 480px);
 	background-color:#A68DDB;
 	padding-top: 20px;
 	border-radius: 20px;
 
+	.pokefan-identifiquer{
+		position: absolute;
+	    top: -30px;
+	    right: 2px;
+		transform: rotate(-13deg);
+
+		.burst-12 {
+			position: relative;
+			width: $pokefan_size;
+			height: $pokefan_size;
+			background: variables.$yellow-pokemon;
+
+			&::before, &::after {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: $pokefan_size;
+				width: $pokefan_size;
+				background: variables.$yellow-pokemon;
+			}
+			&::before {
+			  transform: rotate(30deg);
+			}
+			&::after {
+			  transform: rotate(60deg);
+			}
+		}	
+		p{
+			position: absolute;
+			top: 40%;
+			color:variables.$red-pokemon;
+			font: 900 clamp(1.5rem, .9rem + 1.15vw, 2.2rem) 'Rubik', sans-serif;
+		}
+	}
+
 	&__exp{
-		font: 400 30px 'Rubik', sans-serif;
-		color: #fff;
+		font: 400 clamp(3rem, 2.8rem + 1vw, 4.5rem) 'Rubik', sans-serif;
+		color: #FFF;
 		text-align: center;
 	}
-
-	.progress_circle{
-		max-height: 150px;
-		margin: auto;
+	&__semicircular{
+		height: clamp(144px, 28vw, 237px);
+    	width: clamp(280px, 55vw, 460px);
 	}
-
 	&__info{
 		position: relative;
-		border-radius: 0 0 20px 20px; 
-		background-color: #fff;
-		width: 290px;
+		width: 100%;
+		background-color: #FFF;
+		padding: 40px 0 13px;
 		text-align: center;
-		padding: 20px 0 10px 0;
-	}
-	
-	&__image{
-		@include imageSize(120px, -95px, 290px);
+		border-radius: 0 0 20px 20px; 
 	}
 
-	h1{
-		font: 400 40px $goldman_font;
+	&__image{
+	    position: absolute;
+	    margin: auto;
+	    left: 0;
+	    right: 0;
+	    top: clamp(-155px, -17vw, -90px);
+	    width: clamp(155px, 28vw, 210px);
+	    height: clamp(135px, 23vw, 200px);
+
+		img{
+			width: 100%;
+		    height: 100%;	
+		}
+	}
+
+	&__name{
+		font: 400 clamp(4rem, 3rem + 2vw, 6rem) 'Goldman', cursive;
 	}
 
 	&__table{
+		@include mixins.displayFlex($justify:center, $alignI:flex-end);
+		max-width: 92%;
 		margin: 5px auto 0 auto;
-		display: flex;
-		justify-content: center;
-		align-items: flex-end;
 		padding-bottom: 10px;
-		border-bottom:$silver_line;
-		max-width: 270px;
+		border-bottom:variables.$silver_line;
 
 		.table{
-			width: 90px;
+			width: 35%;
 
 			&__value{
-				color: #476B6A;
-				font: 400 20px $goldman_font;
-				padding: 8px;
+				color: variables.$dark-green;
+				font: 400 clamp(1.8rem, 1.3rem + 1vw, 3rem) 'Goldman', cursive;
+				padding: 8px 0;
 
-				span{
-					font-size: 15px;
+				&:after{
+					font-size: clamp(1.4rem, 1rem + 1vw, 2rem);
 				}
 			}
-
 			&__title{
-				font: 700 16px $saira_font;
+				font: 700 clamp(1.6rem, 1.2rem + 2vw, 2rem) 'Saira', sans-serif;
 			}	
-		}
 
-		.table--weight{
-			.table__value{
-				border-left: $silver_line;
-				border-right: $silver_line;
+			&--weight .table__value{
+				border-left: variables.$silver_line;
+				border-right: variables.$silver_line;
+
+				&:after{
+					content: "kg";
+				}
+			}
+			&--height .table__value:after{
+				content: "m";
 			}
 		}
 	}
 
 	&__statistics-container{
-		color: #476B6A;
-		font: 700 17px $saira_font;
+		color: variables.$dark-green;
+		font: 700 clamp(1.7rem, 1.2rem + 1vw, 2.2rem) 'Saira', sans-serif;
 
 		.statistics{
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			justify-content: space-between;
-			margin:15px 0;
-			padding: 0 20px;
-
+			@include mixins.displayFlex($justify:space-between, $alignI:center);
+			width: 88%;
+			margin:15px auto;
 
 			&__progress-bar-horizontal{
 				max-width: 320px;
 				background-color: #959292;
 				border-radius:8px;
-				animation: background 2s ease forwards;
+				animation: progress 2s ease forwards;
 
 				div{
 					height: 15px;
 				    border-radius:8px;
 				}
 			}
-
 			&__title{					
-			    min-width: 80px;
+			    min-width: clamp(75px, 13vw, 93px);
 	 			text-align: left;
 			}
-
 			&__info{
-				display: flex;
-				justify-content: flex-end;
-				align-items: center;
+				@include mixins.displayFlex($justify:flex-end, $alignI:center);
 				min-width: 80px;
 	 			text-align: right;	
 				
-				.icon{
-					width: 30px;
+				svg{
+					width: 25px;
 					padding-left: 5px;
 				}			
 			}
 		}
 	}
-		
 }
 
-@media (min-width: 620px) {
-	.detail-card{
-		max-width: 480px;
-
-		&__exp{
-			font-size: 45px;
-		}
-		.progress_circle{
-			max-height: 210px;
-		}
-
-		&__info{
-			width: 480px;
-			padding: 40px 0 20px 0;
-		}
-		
-		&__image{
-			@include imageSize(200px, -150px, 480px);
-		}
-
-		h1{
-			font-size: 60px;
-		}
-
-		&__table{
-			max-width: 420px;
-
-			.table{
-				width: 140px;
-
-				&__value{
-					font-size: 30px;
-
-	    			span{
-	    				font-size: 20px;
-	    			}
-				}
-
-				&__title{
-					padding-top: 5px;
-					font-size: 20px;
-				}	
-			}
-
-		}
-
-		&__statistics-container{
-			font-size: 22px;
-
-			.statistics{
-				padding: 0 30px;
-
-				&__title{					
-				    min-width: 90px;
-				}
-			}
-		}
-	}
-}
-
-
-
-@keyframes background {
+@keyframes progress {
     0% {width: 0;}
     100% {width: 100%;}
 }
