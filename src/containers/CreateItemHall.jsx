@@ -1,104 +1,79 @@
-import React,{ useEffect , useState} from 'react'
-import {useParams, Link} from 'react-router-dom'
-import {useDispatch} from 'react-redux';
-import axios from 'axios'
-import {itemHallCreate} from '../redux/actions/index'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleArrowUp } from '@fortawesome/free-solid-svg-icons';
-import {CirclesWithBar} from  'react-loader-spinner'
-import '../assets/styles/containers/CreateItemHall.scss'
-import BtnCancel from "../components/BtnCancel"
+import { useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useStatusVerification } from '../utils/hooks/useStatusVerification';
+import { useControlUploadImage } from '../utils/hooks/useControlUploadImage';
+import { itemHallCreate, cleanDetail } from '../redux/actions/index';
+import '../assets/styles/containers/CreateItemHall.scss';
+import BtnCancel from "../components/BtnCancel";
+import BtnSubmit from "../components/BtnSubmit";
+import UploadImageButton from '../components/UploadImageButton';
+import backgroundImage from '../assets/static/backgroundHall.png';
 
 export default function CreateItemHall() {
 	const dispatch = useDispatch();
-	const [widthImage, setWidthImage] = useState(300)
-	const [loadImage, setLoadImage] = useState(false)
-
+	const navigate = useNavigate();	
 	const {name} = useParams()
 
+	const [widthImage, setWidthImage] = useState(300)
+	const [loadSubmit, setLoadSubmit] = useState(false)
 	const [input, setInput] = useState({
 		title: "",
 		image: "",
 	})
 
-	const uploadImage = async (e)=>{
-		setLoadImage(true)
-		const files = e.target.files;
-		const data = new FormData();
-		data.append("file", files[0]);
-		data.append("upload_preset", "clb9u90e");
 
-		await axios.post("https://api.cloudinary.com/v1_1/du7lmw4vm/image/upload", data).then((res)=>{
-			setInput({
-				...input,
-				image:res.data.secure_url
-			})
-									
-			if (res.data.height>660) {
-				setWidthImage((660*res.data.width)/res.data.height)
-			} else {
-				setWidthImage(res.data.width)
-			}
-			setLoadImage(false)
-		})
-	}
+	const [loadUpload, setLoadUpload, afterUpload, imageInfo] = useControlUploadImage(setInput, 'image', 
+		() => setWidthImage(imageInfo.height>660 ? ((660*imageInfo.width)/imageInfo.height) : imageInfo.width)
+	)
 
-	const handleChange = (e) =>{
-		setInput({
-			...input,
-			[e.target.name] : e.target.value
-		})
-	}
 
 	const handleSubmit = (e) =>{
 		e.preventDefault();
+		setLoadSubmit(true)
 		dispatch(itemHallCreate(input, name))
 	}
 
+	useStatusVerification(
+		'Item created successfully', () => {
+			setLoadSubmit(false)
+			dispatch(cleanDetail())
+			setInput({title: "", image: "" })
+			navigate(`/detail/${name}`)					
+		}, 
+		'Item created FAIL', () => setLoadSubmit(false)
+	)
+
+
 	return (
-		<form className='create-item-hall' autoComplete="off">
+		<form onSubmit={handleSubmit} className='create-item-hall' autoComplete="off">
+
 			<h1>Upload a picture for <span>{name}</span></h1>
 
 			<div className='item' style={{'width':`${widthImage}px`}}>				
-				<div className='item__image'>
-					<div className={`item__input-file ${input.image && "exist"}`}>
-						{loadImage?
-						<CirclesWithBar
-							height="50"
-							width="50"
-							color="#000"
-							visible={true}
-							ariaLabel='circles-with-bar-loading'
-						/> :	
-						<>
-							<FontAwesomeIcon icon={faCircleArrowUp} />
-							<input 
-								type="file"
-								onChange={(e)=>uploadImage(e)}
-								disabled={loadImage}
-							/>
-						</>}
-					</div>
-										
-					<img src={input.image || 'https://res.cloudinary.com/du7lmw4vm/image/upload/v1666326726/CRUD%20pokemon%20NO%20DELETE/Frame_1_zf01xe.png'} alt="image"/>
-				</div>
-
+				<UploadImageButton 
+					image={input.image || backgroundImage} 
+					disabled={loadSubmit} 
+					iconTransparent={input.image} 
+					iconColor='#633115'
+					afterUpload={afterUpload}
+					setLoadUpload={setLoadUpload}
+				/>
 				<textarea 
 					type="text"
 					value={input.title}
 					name="title" 
-					onChange={(e)=>handleChange(e)}
-					maxLength={500}
+					onChange={(e)=>setInput(prevState=>({...prevState, title: e.target.value}))}
+					maxLength={145}
 					placeholder='Description...'
-					disabled={loadImage}
+					disabled={loadSubmit || loadUpload}
 				/>
 			</div>
 
 			<div className='buttons'>
 				<BtnCancel route={`/detail/${name}`}/>
-				<button className='buttons__button buttons__button--submit' onClick={(e)=>handleSubmit(e)} type="submit" disabled={loadImage || !input.image || !input.title}>Create</button>				
+				<BtnSubmit text='CREATE' disableSubmit={!input.image || !input.title || loadUpload} loadSubmit={loadSubmit}/>				
 			</div>
 		</form>
 	)
-
 }

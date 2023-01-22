@@ -1,66 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Skranji&display=swap');
+@use '../mixins'; 
+@use '../variables'; 
+
 .create-item-hall{
 	padding: 20px;
 
 	h1{
-		font: 400 calc(20px + 3vw) 'Skranji', cursive;
+		color: #FFF;
+		font: 700 clamp(3rem, 2rem + 2.5vw, 7rem) 'Jura', sans-serif;;
 		text-align: center;
-		color: #fff;
 
 		span{
-			color:#fbf892;
-			text-decoration: underline solid #fff calc(1px + 1.5vw);
+			color:variables.$yellow-pokemon;
+			text-decoration: underline solid #FFF 1.2rem;
 		}
 	}
 
-
 	.item{
-		margin: 3vw auto;
     	max-width: 70vw;		
-    	background-color: #633115;
-    	border: #633115 3vw solid;
-    	border-bottom: #633115 1vw solid;
-
-		&__image{
-			position: relative;
-			width: 100%;
-		}
-
-		&__input-file{
-			position: absolute;
-			top: calc((100% - 50px)/2);
-			left: calc((100% - 50px)/2);
-			max-width: 50px;
-
-
-
-			.fa-circle-arrow-up{
-				font-size: 50px;
-				color:#633115;
-			}
-
-			&.exist{
-				opacity: .5;
-				transition: opacity .5s ease;
-			
-				&:hover {
-	        		opacity: 1;
-	    		}
-			}
-
-			input{
-				position: absolute;
-				top: 0;
-				left: 0;
-				right: 0; 
-				bottom: 0;
-				width: 100%;
-				height: 100%;
-				opacity: 0;
-			}
-		}	
-
-
+		margin: 35px auto;
+    	background-color: variables.$brown_wood;
+    	border: variables.$brown_wood clamp(15px, 3vw, 30px) solid;
+    	border-bottom-width: clamp(10px, 3vw, 20px);
 
 	    img{
 	        object-fit: contain;
@@ -70,13 +30,12 @@
 
 	    textarea{
 	    	display: block;
-	    	padding: 1.5vw 0;
-  		  	height: 5vw;
   		  	width: 100%;
-    		border: none;
+	    	padding: clamp(.8rem, 3vw, 1.5rem) 0;
   		  	background-color: transparent;
-  		  	font:400 calc(5px + 1vw) 'Merriweather Sans', sans-serif;
-  		  	color: #fff;
+  		  	color: #FFF;
+  		  	font:400 clamp(1.6rem, 1rem + 1vw, 2.5rem) 'Arimo', sans-serif;
+    		border: none;
 	    }
 
 	    textarea:disabled,
@@ -87,32 +46,10 @@
 	}
 
 	.buttons{
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-	
-		&__button{
-			margin:auto;
-			padding: 0.3vw 5vw;
-			font:600 calc(5px + 1.2vw) 'Merriweather Sans', sans-serif;
-			color:#fff;
-			text-decoration: none;
-
-			&--submit{
-				background-color: #324ff1;
-			}
-			&--cancel{
-				background-color: #FF2D2D;
-			}
-
-
-			&--submit:disabled,
-			&--submit[disabled]{
-			  opacity: .6;
-			  cursor: default;
-			}
-		}
+		@include mixins.displayFlex($justify:center);
+	    width: 100%;
+	    max-width: 70vw;
+	    margin: auto;
+	    gap: 10%;
 	}
-	
 }    
-
