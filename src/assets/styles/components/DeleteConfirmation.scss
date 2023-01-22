@@ -1,0 +1,41 @@
+@use '../mixins';
+@use '../variables';
+
+.delete-confirmation{
+	padding: 10px 20px;
+	background-color:#FFF;
+	border-radius: 8px;
+
+	&__message, &__buttons{
+		display: flex;
+	    width: clamp(245px, 50vw, 450px);
+	    gap: 10px;
+	}
+
+	&__message{
+		align-items: center;
+
+		svg{
+			font-size: clamp(3.5rem, 3rem + 1vw, 4.5rem);
+			color: variables.$red-font;	
+		}
+
+		p{
+			font: 400 clamp(1.8rem, 1.4rem + 1vw, 2.4rem) 'Arimo', sans-serif;
+		}		
+	}
+
+	&__buttons{
+		margin-top: 20px;
+		justify-content: flex-end;
+
+		.btn--submit{
+			background-color: variables.$red-font;
+		}
+	}
+
+	&__cancel{
+		@include mixins.setBgColorAndHover(#3e3e3e);	
+    	color: #FFF;
+	}
+}
