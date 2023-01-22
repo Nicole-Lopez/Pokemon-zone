@@ -1,52 +1,52 @@
-html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable, form, fieldset, blockquote {
- padding: 0;
- margin: 0;
- font-size: 100%;
- font-weight: normal;
+html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable, form, fieldset, blockquote{
+	padding: 0;
+	margin: 0;
+	font-size: 62.5%;
+	font-weight: normal;
 }
-table { 
+table{ 
 	border-collapse: collapse; 
 	border-spacing: 0; 
 }
-td, th, caption { 
+td, th, caption{ 
 	font-weight: normal; 
 	text-align: left; 
 }
-img, fieldset { 
+img, fieldset{ 
 	border: 0; 
 }
-ol { 
+ol{ 
 	padding-left: 1.4em; 
 	list-style: decimal; 
 }
-ul { 
+ul{ 
 	padding-left: 1.4em; 
 	list-style:square; 
 }
-q:before, q:after { 
+q:before, q:after{ 
 	content:''; 
 }
-.link { 
-	text-decoration: none;
-}
 button{
-	outline: none;
 	cursor: pointer;
+	outline: none;
 	border: none;
 	background-color: transparent;
 	padding: 0;
 }
+button:disabled, button[disabled]{
+	cursor: default;											
+}
+
 input{
 	outline: none;
 }
-
 textarea{
 	outline: none;
 	resize: none;
   	padding: 0;
 }
-a {
-    color: #000;
+a{
     cursor: pointer;
+    color: #000;
     text-decoration: none;
 }
