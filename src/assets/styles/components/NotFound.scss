@@ -1,24 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro&display=swap');
+@use '../mixins';
+@use '../variables';
 
-#notFound{
-	display:flex;
-	justify-content: center;
-	align-items: center; 
+.notFound{
+	@include mixins.displayFlex($wrap:wrap, $justify:center, $alignI: center);	
+	
+	div{
+		text-align: center;
 
-		.msj{
-			text-align: center;
-
-				p{
-					color: #0457b2;
-					font:600 150px 'Anonymous Pro', monospace;
-				}
-				p:first-child{
-					color: red;
-					font:bold 200px 'Anonymous Pro', monospace;
-				}
+		p{
+			color: variables.$blue-pokemon;
+			font:600 clamp(5.8rem, 4rem + 6vw, 13rem) 'Anonymous Pro', monospace;
 		}
-
-		img{
-			width: 520px;
+		p:first-child{
+			color: variables.$red-pokemon;
+			font:bold clamp(7.5rem, 5rem + 8vw, 16rem) 'Anonymous Pro', monospace;
 		}
+	}
+	img{
+		width: clamp(200px, 40vw, 520px);
+	}
 }
