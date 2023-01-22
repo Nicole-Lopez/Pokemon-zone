@@ -1,26 +1,31 @@
+@use '../mixins';
+@use '../variables';
+
 .btn{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-	font:600 18px 'Merriweather Sans', sans-serif;
-	color:#fff;
-	width: 15vw;
-    height: 35px;
-    min-width: 120px;
-    max-width: 200px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.09);
+	@include mixins.displayFlex($justify:center,$alignI:center);	
+	position: relative;
+	width: clamp(120px, 15vw, 200px);
+    padding: 6px 0;
+	font:600 clamp(1.8rem, 1rem + 1vw, 2.2rem) 'Merriweather Sans', sans-serif;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, .09);
+
+	&:disabled, &[disabled]{
+		opacity: .6;
+		cursor: default;
+		pointer-events: none;
+	}
+
+	&:active{
+		top: 2px;
+	}
 
 	&--submit{
-		background-color: #324ff1;
-
-		&:disabled,
-		&[disabled]{
-		  opacity: 0.6;
-		  cursor: default;
-		}
+		@include mixins.setBgColorAndHover(variables.$blue-pokemon);	
+		color:#FFF;
 	}
+
 	&--cancel{
-		background-color: #FF2D2D;
+		@include mixins.setBgColorAndHover(variables.$red-pokemon);	
+		color:#FFF;
 	}
-
 }
