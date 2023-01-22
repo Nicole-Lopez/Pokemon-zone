@@ -1,31 +1,26 @@
-.searchBar{
+@use '../variables';
+
+.search-bar{
 	position: relative;
-	justify-self: end;
+
+	input, .fa-magnifying-glass{
+		color: variables.$dark-green;
+		font-size: 1.9rem;
+	}
 
 	input{
-		width: 120px;
-		height: 35px;
-		padding: 0 50px;
+		width: 12rem;
+		padding: .8rem 5rem;
+		background-color: variables.$light-green;
 		border: none;
-		border-radius: 30px;
-		background-color: #E9F2DE;
-		font-size: 18px;
-		color: #476B6A;
+		border-radius: 3rem;
 	}
 
 	.fa-magnifying-glass{
 	    position: absolute;
-		top: 8px;
-		left: 15px;
-		color: #476B6A;
-		font-size: 18px;
+		top: 0;
+		bottom: 0;
+		margin: auto;
+		left: 7%;
 	}
 }
-
-@media (min-width: 1100px) {
-	.searchBar{
-		order: 3;
-		justify-self: center;
-	}
-}
-
