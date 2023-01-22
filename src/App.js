@@ -1,24 +1,27 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import HomePage from './containers/HomePage'
-import DetailsPokemon from './containers/DetailsPokemon'
-import PokemonCreate from './containers/PokemonCreate'
-import Fantasma from './containers/Fantasma'
-import CreateItemHall from './containers/CreateItemHall'
-
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import HomePage from './containers/HomePage';
+import DetailsPokemon from './containers/DetailsPokemon';
+import PokemonCreate from './containers/PokemonCreate';
+import CreateItemHall from './containers/CreateItemHall';
+import EditPokemon from './containers/EditPokemon';
+import Alerts from './components/Alerts';
+import NotFoundPage from './containers/NotFoundPage';
 
 function App() {
-  	return (
+	return (
 		<div className="App">
-	  		<BrowserRouter>
-	  			<Routes>
-      				<Route exact path="/" element={<HomePage />} />
-      				<Route exact path="/detail/:name" element={<DetailsPokemon />} />
-      				<Route exact path="/pokemons/create" element={<PokemonCreate />} />
-      				<Route exact path="/pokemons/ops" element={<Fantasma />} />
+  		<BrowserRouter>
+        <Alerts/>  
 
-      				<Route exact path="/hall/:name" element={<CreateItemHall />} />
+  	  	<Routes>
+        	<Route path="/" element={<HomePage />} />
+        	<Route path="/detail/:name" element={<DetailsPokemon />} />
+        	<Route path="/pokemons/create" element={<PokemonCreate />} />
+        	<Route path="/hall/:name" element={<CreateItemHall />} />       			
+        	<Route path="/pokemon/edit/:name" element={<EditPokemon />} />
+          <Route path="*" element={<NotFoundPage />} />
+  			</Routes>
 
-			  	</Routes>
 			</BrowserRouter>  		     
 		</div>
 	);
