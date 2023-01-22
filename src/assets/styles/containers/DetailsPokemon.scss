@@ -1,0 +1,207 @@
+@use '../mixins';
+@use '../variables';
+
+@mixin pokefanBtn($svgColor,$content,$justify) {
+    $horizontalPositionIcon:null;
+    $pseudoElementWithText:null;
+    $pseudoElementWithBackground:null;
+
+    @if $justify == right {
+        $horizontalPositionIcon:left;
+        $pseudoElementWithText:after;
+        $pseudoElementWithBackground:before;
+    }
+    @if $justify == left {
+        $horizontalPositionIcon:right;
+        $pseudoElementWithText:before;
+        $pseudoElementWithBackground:after;
+    }
+
+
+    svg{
+        #{$horizontalPositionIcon}: 10px;
+        color: $svgColor;       
+    }
+
+    &:#{$pseudoElementWithText}{
+        content: $content;
+        #{$justify}: -105px;
+        z-index: 1;
+        width: 120px;
+        transition: $justify .3s linear 0s;
+    }        
+
+    &:#{$pseudoElementWithBackground}{
+        content: "";
+        top: 50%;
+        left: 50%;
+        width: 0%;
+        height: 100%;              
+        background: $svgColor;
+        transform: translate(-50%,-50%);
+        transition: width .3s ease;     
+    }    
+
+    &:hover{
+        svg{
+            #{$horizontalPositionIcon}: 30px;
+        }           
+        &:#{$pseudoElementWithText}{
+            #{$justify}: 130px;              
+        } 
+        &:#{$pseudoElementWithBackground}{
+            width: 100%;
+        }             
+    }
+} 
+
+
+.detail-pokemon-page{
+    &__card-info{
+        @include mixins.displayFlex($direction: column, $alignI:center);    
+        padding-top: 80px;     
+    }
+
+    .origin{
+        @include mixins.displayFlex($justify:center, $alignI:center);
+        position: relative;        
+        width: 220px;
+        height: 75px;        
+        margin: 20px 0;
+        overflow: hidden;
+        border-radius: 50px;
+
+        &--original{
+            cursor: default;
+            color: rgb(120,50,5);
+            font: 700 25px 'Skranji', sans-serif;
+            text-shadow: 0 2px 2px rgba(250, 227, 133, 1);
+            text-align: center;            
+            background-size: 300% 100%;
+            background-image: linear-gradient(160deg, #c5814a, #b47e11, #fef1a2, #bc881b, #a54e07);            
+            border: 1px solid #a55d07;
+            box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(110,80,20,.4),
+                        inset 0 -2px 5px 1px rgba(139,66,8,1),
+                        inset 0 -1px 1px 3px rgba(250,227,133,1);
+
+            &:before{
+                content: "";
+                position: absolute;
+                top: 0;
+                width: 30px;
+                height: 100%;
+                background: rgba(255, 255, 255, 90%);
+                filter: blur(30px);
+                transform: translateX(-140px);
+                transition: transform .6s ease-out;
+            }
+
+            &:hover{
+                &:before{
+                    transform: translateX(300px);
+                }    
+            }
+        }
+
+        &--pokefan{
+            background-color: variables.$light-green;
+
+            .pokefan{
+                @include mixins.displayFlex($alignI:center);
+                position: relative;
+                overflow: hidden;
+                cursor: pointer;
+                min-width: 50%;
+                height: 100%;
+                transition: min-width .3s linear 0s; 
+               
+                svg{
+                    position: absolute;
+                    z-index: 1;
+                    font-size: 50px;
+                    transition: color .4s cubic-bezier(.25, .1, .25, 1),
+                                left .4s cubic-bezier(.25, .5, 0, 1),
+                                right .4s cubic-bezier(.25, .5, 0, 1);
+                }     
+
+                &:before, &:after{
+                    position: absolute;
+                    text-align: center;
+                    color: variables.$light-green;
+                    font: 700 18px 'Merriweather Sans', sans-serif;
+                }
+
+                &:hover{
+                    min-width: 330px;
+
+                    svg, &:before, &:after{
+                        color:#FFF;                
+                    }
+                }
+
+                &--delete{
+                    @include pokefanBtn($svgColor:variables.$red-font,$content:"DELETE POKÉMON",$justify:left);
+                }
+
+                &--edit{
+                    @include pokefanBtn($svgColor:variables.$blue-pokemon,$content:"EDIT POKÉMON",$justify:right);
+                }
+            }
+        }
+    }
+
+    .hall-Of-fame{
+        @include mixins.displayFlex($direction:column);
+        width: clamp(295px, 95%, 1200px);
+        margin: 100px auto;
+
+        h2{
+            color: #FFF;
+            font:700 clamp(4rem, 3rem + 2.5vw, 7rem) 'Jura', sans-serif;
+            text-decoration: underline solid #FFF 32%;
+            text-align: center;
+        }
+
+        &__upload-btn{
+            cursor: pointer;
+            align-self: flex-start;
+            padding: 1.2% 2.3%;
+            margin-top: clamp(25px, 4vw, 50px);   
+            background-color: variables.$light-green;
+            color: variables.$dark-green;
+            font: 700 clamp(1rem, .7rem + 1vw, 2.2rem) "Jura", sans-serif;
+            border: variables.$dark-green 3px solid;
+            transition: box-shadow .6s ease,
+                        border-radius .6s cubic-bezier(.25, .1, .25, 1),
+                        background .6s ease,
+                        color .6s ease;
+
+            &:hover{
+                background: variables.$dark-green;
+                color: variables.$light-green;
+                box-shadow: 0 0 0 3px variables.$light-green;
+                border-radius: 100px;
+            }
+        }
+
+        &__no-content{
+            text-align: center;
+            color: variables.$blue-pokemon;
+            margin: 25px auto;
+            padding: 0 10px;
+            
+            img{
+                width: clamp(150px, 30vw, 300px);
+                margin: 20px auto;
+            }
+
+            p{
+                font: 700 clamp(2rem, 1.5rem + 1.5vw, 4rem) "Merriweather Sans", sans-serif;     
+            }
+
+            p:last-child{
+                color: variables.$red-pokemon;
+            }
+        }
+    }
+}
