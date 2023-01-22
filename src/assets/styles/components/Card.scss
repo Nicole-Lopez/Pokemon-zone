@@ -1,131 +1,49 @@
-@import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&family=Rubik&display=swap');
-$font-color: #476B6A;
-$green-apple-color: #E9F2DE;
+@use '../mixins';
+@use '../variables';
 
-.cardHome{
+.card{
+	@include mixins.displayFlex($direction:column, $justify:center);
 	position: relative;
-	display: flex;
-	justify-content: center;
-	flex-direction: column;
-	max-width: 145px;
-	max-height: 250px;
-	min-width: 145px;
-	min-height: 250px;
+	height: clamp(250px, 35vw, 430px);
+	width: clamp(145px, 23vw, 325px);
 	padding-bottom: 8px;
-	margin: 5px;
-	border-radius: 8px;
-	background-color: #fff;	
-	text-decoration: none;
+	margin: clamp(5px, .8vw, 15px);
+	background-color: #FFF;	
 	text-align: center;
-	color: #476B6A;
+	color: variables.$dark-green;
+	border-radius: 8px;
 
-
-	.cardHome__pokefan{
+	&__pokefan{
 		position: absolute;
 		top: -4px;
 		right: -5px;
 		width: 0;
 		height: 0;
 		border-style: solid;
-		border-width: 0 70px 70px 0;
-		border-color: transparent #FFE923 transparent transparent;
+		border-width: 0 clamp(70px, 9vw, 120px) clamp(70px, 9vw, 120px) 0;
+		border-color: transparent variables.$yellow-pokemon transparent transparent;
 
 		p{
-			font-size: 11px;
-			text-align: center;
-			width: 70px;
-			margin: 4px 0 0 6px;
-		}
-
-		img{
-			width: 25px;
-			margin-left: 35px;
+		    position: absolute;
+		    top: clamp(20px, 3vw, 35px);
+		    left: clamp(15px, 1.9vw, 25px);			
+		    transform: rotate(45deg);
+		    color: variables.$red-pokemon;
+			font: 700 clamp(1.5rem, .8rem + 1vw, 2.5rem) "Grandstander", cursive;
 		}
 	}
-
-	.cardHome__experience{
-		font: 500 18px 'Kdam Thmor Pro', sans-serif;
+	&__experience{
 		padding: 15px 0;
+		font: 500 clamp(1.8rem, 1.3rem + 1vw, 2.7rem) 'Kdam Thmor Pro', sans-serif;
 	}
-
-	.cardHome__img{
+	&__img{
+		width: clamp(90px, 13vw, 180px);
+		max-height: 180px;
+		min-height: 90px;
 		margin: auto;		
-		max-height: 90px;
-		min-height: 90px;		
-		max-width: 90px;
 	}
-	
-	.cardHome__name{
-		font: 700 21px 'Rubik', sans-serif;
+	&__name{
 		padding: 15px 0;
+		font: 700 clamp(2.1rem, 1.8rem + 1vw, 3.5rem) 'Rubik', sans-serif;
 	}
 }
-
-@media (min-width: 620px) {
-  	.cardHome{
-  		max-width: 265px;
-		max-height: 400px;
-		min-width: 265px;
-		min-height: 400px;
-		margin:8px;
-
-
-		.cardHome__pokefan{
-			top: -6px;
-			right: -8px;			
-			border-width: 0 110px 110px 0;
-
-			p{
-				font-size: 17px;
-				width: 100px;
-				margin: 7px 0 0 16px;
-			}
-
-			img{
-				width: 40px;
-				margin-left: 60px;
-			}
-		}		
-
-		.cardHome__experience{
-			font-size: 27px;
-		}
-
-		.cardHome__img{		
-			max-height: 180px;
-			min-height: 180px;		
-			max-width: 180px;
-		}
-		
-		.cardHome__name{
-			font-size: 35px;
-		}
- 	}
-}
-
-@media (min-width: 1410px) {
-  	.cardHome{
-  		max-width: 325px;
-		max-height: 430px;
-		min-width: 325px;
-		min-height: 430px;
-		margin:15px;
-
-		.cardHome__pokefan{			
-			border-width: 0 130px 130px 0;
-
-			p{
-				font-size: 20px;
-				margin: 7px 0 0 28px;
-			}
-
-			img{
-				width: 50px;
-				margin-left: 70px;
-			}
-		}
- 	}
-}
-
-
-
