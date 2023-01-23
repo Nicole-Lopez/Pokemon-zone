@@ -38,6 +38,9 @@
       "react-app/jest"
     ]
   },
+  "engines": {
+    "node": "16.x"
+  },
   "browserslist": [
     ">0.2%",
     "not dead",
