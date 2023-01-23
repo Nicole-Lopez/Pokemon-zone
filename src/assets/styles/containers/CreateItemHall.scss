@@ -21,7 +21,7 @@
     	max-width: 70vw;		
 		margin: 35px auto;
     	background-color: variables.$brown_wood;
-    	border: clamp(15px, 3vw, 30px) solid solidvariables.$brown_wood;
+    	border: clamp(15px, 3vw, 30px) solid variables.$brown_wood;
     	border-bottom-width: clamp(10px, 3vw, 20px);
 
 	    img{
