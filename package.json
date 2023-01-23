@@ -1,5 +1,4 @@
 {
-  "homepage":"https://Nicole-Lopez.github.io/CRUD-pokemon-client/",  
   "name": "client",
   "version": "0.1.0",
   "private": true,
@@ -28,8 +27,6 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -41,12 +38,12 @@
       "react-app/jest"
     ]
   },
+  "engines": {
+    "node": "16.x"
+  },
   "browserslist": [
     ">0.2%",
     "not dead",
     "not op_mini all"
-  ],
-  "devDependencies": {
-    "gh-pages": "^5.0.0"
-  }
+  ]
 }

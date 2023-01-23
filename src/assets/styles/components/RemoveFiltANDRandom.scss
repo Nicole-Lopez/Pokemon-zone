@@ -8,7 +8,9 @@
 
 	&>button{	
 		@include mixins.displayFlex($alignI:center);
-		font:600 clamp(1.3rem, .8rem + 1vw, 1.6rem) 'Rubik', sans-serif;
+		font-weight: 600;
+		font-family: 'Rubik', sans-serif;
+		font-size: clamp(1.3rem, .8rem + 1vw, 1.6rem);
 		gap:5px;
 	}	
 	.random{

@@ -18,6 +18,8 @@
 	    padding: 4px;
 	    background-color: #FF000E;
 	    color: #FFF;
-	    font: bold clamp(23px, 5vw, 35px) 'Arial';		
+        font-weight: bold;
+        font-family: 'Arial';
+        font-size: clamp(23px, 5vw, 35px);		
 	}
 }		
