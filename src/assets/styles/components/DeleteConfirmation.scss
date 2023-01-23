@@ -21,7 +21,9 @@
 		}
 
 		p{
-			font: 400 clamp(1.8rem, 1.4rem + 1vw, 2.4rem) 'Arimo', sans-serif;
+			font-weight: 400;
+			font-family: 'Arimo', sans-serif;
+			font-size: clamp(1.8rem, 1.4rem + 1vw, 2.4rem);
 		}		
 	}
 

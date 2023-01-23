@@ -9,11 +9,15 @@
 
 		p{
 			color: variables.$blue-pokemon;
-			font:600 clamp(5.8rem, 4rem + 6vw, 13rem) 'Anonymous Pro', monospace;
+            font-weight: 600;
+            font-family: 'Anonymous Pro', monospace;
+            font-size: clamp(5.8rem, 4rem + 6vw, 13rem);
 		}
 		p:first-child{
 			color: variables.$red-pokemon;
-			font:bold clamp(7.5rem, 5rem + 8vw, 16rem) 'Anonymous Pro', monospace;
+            font-weight: bold;
+            font-family: 'Anonymous Pro', monospace;
+            font-size: clamp(7.5rem, 5rem + 8vw, 16rem);
 		}
 	}
 	img{

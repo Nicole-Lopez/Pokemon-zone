@@ -43,12 +43,16 @@ $pokefan_size: clamp(65px, 11vw, 100px);
 			position: absolute;
 			top: 40%;
 			color:variables.$red-pokemon;
-			font: 900 clamp(1.5rem, .9rem + 1.15vw, 2.2rem) 'Rubik', sans-serif;
+			font-weight: 900;
+			font-family: 'Rubik', sans-serif;
+			font-size: clamp(1.5rem, .9rem + 1.15vw, 2.2rem);
 		}
 	}
 
 	&__exp{
-		font: 400 clamp(3rem, 2.8rem + 1vw, 4.5rem) 'Rubik', sans-serif;
+		font-weight: 400;
+		font-family: 'Rubik', sans-serif;
+		font-size: clamp(3rem, 2.8rem + 1vw, 4.5rem);
 		color: #FFF;
 		text-align: center;
 	}
@@ -81,7 +85,9 @@ $pokefan_size: clamp(65px, 11vw, 100px);
 	}
 
 	&__name{
-		font: 400 clamp(4rem, 3rem + 2vw, 6rem) 'Goldman', cursive;
+		font-weight: 400;
+		font-family: 'Goldman', cursive;
+		font-size: clamp(4rem, 3rem + 2vw, 6rem);
 	}
 
 	&__table{
@@ -96,7 +102,9 @@ $pokefan_size: clamp(65px, 11vw, 100px);
 
 			&__value{
 				color: variables.$dark-green;
-				font: 400 clamp(1.8rem, 1.3rem + 1vw, 3rem) 'Goldman', cursive;
+				font-weight: 400;
+				font-family: 'Goldman', cursive;
+				font-size: clamp(1.8rem, 1.3rem + 1vw, 3rem);
 				padding: 8px 0;
 
 				&:after{
@@ -104,7 +112,9 @@ $pokefan_size: clamp(65px, 11vw, 100px);
 				}
 			}
 			&__title{
-				font: 700 clamp(1.6rem, 1.2rem + 2vw, 2rem) 'Saira', sans-serif;
+				font-weight: 700;
+				font-family: 'Saira', sans-serif;
+				font-size: clamp(1.6rem, 1.2rem + 2vw, 2rem);
 			}	
 
 			&--weight .table__value{
@@ -123,7 +133,9 @@ $pokefan_size: clamp(65px, 11vw, 100px);
 
 	&__statistics-container{
 		color: variables.$dark-green;
-		font: 700 clamp(1.7rem, 1.2rem + 1vw, 2.2rem) 'Saira', sans-serif;
+		font-weight: 700;
+		font-family: 'Saira', sans-serif;
+		font-size: clamp(1.7rem, 1.2rem + 1vw, 2.2rem);
 
 		.statistics{
 			@include mixins.displayFlex($justify:space-between, $alignI:center);

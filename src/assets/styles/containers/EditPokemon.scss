@@ -5,7 +5,9 @@
 	h1{
 		padding-top:15px;
 		color: #FFF;
-		font: 700 clamp(3rem, 2rem + 2.5vw, 5.5rem) 'Jura', sans-serif;;
+		font-weight: 700;
+		font-family: 'Jura', sans-serif;
+		font-size: clamp(3rem, 2rem + 2.5vw, 5.5rem);
 		text-align: center;
 
 		span{
@@ -105,8 +107,8 @@
 		    border-radius: 15px;
 
 			&-weight{
-				border-left: solid #C0C0C0 1px;
-	    		border-right: solid #C0C0C0 1px;
+				border-left: variables.$silver_line;
+	    		border-right: variables.$silver_line;
 			}
 			
 

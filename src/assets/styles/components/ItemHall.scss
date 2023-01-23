@@ -13,7 +13,7 @@
             height: 100%;
             width: 50%;
             background-color: variables.$light-green;
-            border: variables.$brown_wood clamp(10px, 3vw, 50px) solid;
+            border: clamp(10px, 3vw, 50px) solid variables.$brown_wood;
 
             img{
                 object-fit: contain;
@@ -28,7 +28,9 @@
             background-color: variables.$brown_wood;
             padding: 0 4%;
             color:#FFF;
-            font: 400 clamp(1.5rem, .7rem + 1.4vw, 3rem) 'Arimo', sans-serif;
+            font-weight: 400;
+            font-family: 'Arimo', sans-serif;
+            font-size: clamp(1.5rem, .7rem + 1.4vw, 3rem);
             
             button{
                 position: relative;
@@ -36,7 +38,9 @@
                 width: clamp(35px, 10vw, 110px);
                 padding: 2% 0;
                 color: #FFF;
-                font: 400 clamp(.8rem, .5rem + 1.2vw, 2.2rem) 'Merriweather Sans', sans-serif;
+                font-weight: 400;
+                font-family: 'Merriweather Sans', sans-serif;
+                font-size: clamp(.8rem, .5rem + 1.2vw, 2.2rem);
                 border: 1px solid variables.$yellow-pokemon;
                 transition: text-indent .2s linear 0s;
 
@@ -82,7 +86,9 @@
             p{
                 padding: 1.4vw 0;
                 color:#FFF;
-                font: 400 clamp(1.5rem, 1rem + 1vw, 2.2rem) 'Arimo', sans-serif;               
+                font-weight: 400;
+                font-family: 'Arimo', sans-serif;
+                font-size: clamp(1.5rem, 1rem + 1vw, 2.2rem);               
             }
         }    
 

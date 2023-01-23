@@ -157,7 +157,9 @@
 
         h2{
             color: #FFF;
-            font:700 clamp(4rem, 3rem + 2.5vw, 7rem) 'Jura', sans-serif;
+            font-weight: 700;
+            font-family: 'Jura', sans-serif;
+            font-size: clamp(4rem, 3rem + 2.5vw, 7rem);
             text-decoration: underline solid #FFF 32%;
             text-align: center;
         }
@@ -169,7 +171,9 @@
             margin-top: clamp(25px, 4vw, 50px);   
             background-color: variables.$light-green;
             color: variables.$dark-green;
-            font: 700 clamp(1rem, .7rem + 1vw, 2.2rem) "Jura", sans-serif;
+            font-weight: 700;
+            font-family: "Jura", sans-serif;
+            font-size: clamp(1rem, .7rem + 1vw, 2.2rem);
             border: variables.$dark-green 3px solid;
             transition: box-shadow .6s ease,
                         border-radius .6s cubic-bezier(.25, .1, .25, 1),
@@ -196,7 +200,9 @@
             }
 
             p{
-                font: 700 clamp(2rem, 1.5rem + 1.5vw, 4rem) "Merriweather Sans", sans-serif;     
+                font-weight: 700;
+                font-family: "Merriweather Sans", sans-serif;
+                font-size: clamp(2rem, 1.5rem + 1.5vw, 4rem);     
             }
 
             p:last-child{
