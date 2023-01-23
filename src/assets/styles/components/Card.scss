@@ -29,12 +29,16 @@
 		    left: clamp(15px, 1.9vw, 25px);			
 		    transform: rotate(45deg);
 		    color: variables.$red-pokemon;
-			font: 700 clamp(1.5rem, .8rem + 1vw, 2.5rem) "Grandstander", cursive;
+		    font-weight: 700;
+		    font-family: "Grandstander", cursive;
+		    font-size: clamp(1.5rem, .8rem + 1vw, 2.5rem);
 		}
 	}
 	&__experience{
 		padding: 15px 0;
-		font: 500 clamp(1.8rem, 1.3rem + 1vw, 2.7rem) 'Kdam Thmor Pro', sans-serif;
+		font-weight: 500;
+		font-family: 'Kdam Thmor Pro', sans-serif;
+		font-size: clamp(1.8rem, 1.3rem + 1vw, 2.7rem);
 	}
 	&__img{
 		width: clamp(90px, 13vw, 180px);
@@ -44,6 +48,8 @@
 	}
 	&__name{
 		padding: 15px 0;
-		font: 700 clamp(2.1rem, 1.8rem + 1vw, 3.5rem) 'Rubik', sans-serif;
+		font-weight: 700;
+		font-family: 'Rubik', sans-serif;
+		font-size: clamp(2.1rem, 1.8rem + 1vw, 3.5rem);
 	}
 }
