@@ -11,18 +11,17 @@ function App() {
 	return (
 		<div className="App">
   		<BrowserRouter>
-        <Alerts/>  
+			<Alerts/>  
 
-  	  	<Routes>
-        	<Route path="/" element={<HomePage />} />
-        	<Route path="/detail/:name" element={<DetailsPokemon />} />
-        	<Route path="/pokemons/create" element={<PokemonCreate />} />
-        	<Route path="/hall/:name" element={<CreateItemHall />} />       			
-        	<Route path="/pokemon/edit/:name" element={<EditPokemon />} />
-          <Route path="*" element={<NotFoundPage />} />
-  			</Routes>
-
-			</BrowserRouter>  		     
+			<Routes>
+				<Route path="/" element={<HomePage />} />
+				<Route path="/detail/:name" element={<DetailsPokemon />} />
+				<Route path="/pokemons/create" element={<PokemonCreate />} />
+				<Route path="/hall/:name" element={<CreateItemHall />} />       			
+				<Route path="/pokemon/edit/:name" element={<EditPokemon />} />
+				<Route path="*" element={<NotFoundPage />} />
+			</Routes>
+		</BrowserRouter>  		     
 		</div>
 	);
 }
