@@ -23,9 +23,6 @@
 
 
 ## About The Project
-
-![Screen Shot](images/screenshot.png)
-
 This is an improved version of a pokemon CRUD that I had done as an individual project for the HENRY bootcamp, full stack. <a href="https://github.com/Nicole-Lopez/PI---POKEMON.git">Here the link of the first version</a>, this version has the back and the front in the same repository.
 
 I had decided to redo the entire project from scratch to fix bugs and optimize the code now that I have improved my skills as a programmer. Also add a hall of fame for each pokémon to show the best moments of each one.
